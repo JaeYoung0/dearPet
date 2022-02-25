@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339439530207",
+    "project_id": "noders-1",
+    "storage_bucket": "noders-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339439530207:android:f9d6c47bef812f8551f96a",
+        "android_client_info": {
+          "package_name": "com.dearpet2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339439530207-4sfmt94t9sdad2d2u8p4gbe43pijfnok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJD7KdXizK0G7JJw0N6pcbHC0fzeCC6z4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339439530207-4sfmt94t9sdad2d2u8p4gbe43pijfnok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
