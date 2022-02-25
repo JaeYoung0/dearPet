@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "339439530207-jhaol42tatm8mli1tr0g7fvu8vncadmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dearpet2",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "339439530207-4sfmt94t9sdad2d2u8p4gbe43pijfnok.apps.googleusercontent.com",
           "client_type": 3
         }
