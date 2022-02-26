@@ -1,8 +1,7 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import Swiper from 'react-native-swiper'
-import { useSetRecoilState } from 'recoil'
-import { showSpaceAtom } from '@/modules/auth/atoms'
+// vs react-native-snap-carousel
 import { styles } from './Welcome.style'
 import useCustomNavi from '@/hooks/useCustomNavi'
 
@@ -11,6 +10,7 @@ const Welcome = () => {
   return (
     <>
       <Swiper
+        loop={false}
         style={styles.wrapper}
         showsButtons={false}
         dotStyle={styles.dot}
