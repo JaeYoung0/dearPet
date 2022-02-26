@@ -1,4 +1,4 @@
 export type ScreenParamList = {
   Login: {}
-  Universe: {}
+  Main: {}
 }

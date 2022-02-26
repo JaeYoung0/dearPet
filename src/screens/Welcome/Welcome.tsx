@@ -4,9 +4,12 @@ import Swiper from 'react-native-swiper'
 // vs react-native-snap-carousel
 import { styles } from './Welcome.style'
 import useCustomNavi from '@/hooks/useCustomNavi'
+import { useRecoilValue } from 'recoil'
+import { userStatus } from '@/modules/user/atoms'
 
 const Welcome = () => {
   const navigation = useCustomNavi()
+  const user = useRecoilValue(userStatus)
   return (
     <>
       <Swiper
@@ -36,13 +39,17 @@ const Welcome = () => {
         </View>
       </Swiper>
 
-      {/* Button컴포넌트를 사용하지 않고 TouchableOpacity를 사용 - Button은 안드로이드와 ios에서 다르게 보이기 때문*/}
+      {/* Button대신 TouchableOpacity를 사용 - Button은 안드로이드와 ios에서 다르게 보이기 때문*/}
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.9}
           onPress={() => {
-            navigation.navigate('Login', {})
+            if (!user) {
+              navigation.navigate('Login', {})
+            } else {
+              navigation.navigate('Main', {})
+            }
           }}
         >
           <Text style={styles.buttonText}>시작하기</Text>
