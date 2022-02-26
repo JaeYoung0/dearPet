@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { Alert, SafeAreaView, StatusBar, useColorScheme } from 'react-native'
+import { SafeAreaView, StatusBar, useColorScheme } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
-import Main from '@/navigation/Main'
+import Entry from '@/navigation/Entry'
 import AppWrapper from './AppWrapper'
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     <AppWrapper>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#13141A' }}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <Main />
+        <Entry />
       </SafeAreaView>
     </AppWrapper>
   )

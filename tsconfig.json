@@ -14,6 +14,6 @@
       "@assets/*": ["assets/*"]
     }
   },
-  "include": ["src", "assets"],
+  "include": ["src", "assets", "./App.tsx"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

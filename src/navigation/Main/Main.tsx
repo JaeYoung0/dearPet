@@ -1,28 +1,67 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import Universe from '@/screens/Universe'
-import Welcome from '@/screens/Welcome'
-import Login from '@/screens/Login'
-import { useRecoilValue } from 'recoil'
-import { userStatus } from '@/modules/user/atoms'
-const MainStack = createStackNavigator()
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MyWebView from '@/components/MyWebView'
+import { Text } from 'react-native'
+import Search from '@/screens/Search'
+import MyPet from '@/screens/MyPet'
+import Favorite from '@/screens/Favorite'
+import MyInfo from '@/screens/MyInfo'
 
-function Main() {
-  const user = useRecoilValue(userStatus)
+// screen에 BottomTabNavigator가 들어가네 ??
+const Universe = () => {
+  const UniverseTab = createBottomTabNavigator()
 
   return (
-    <MainStack.Navigator screenOptions={{ headerShown: false }}>
-      {/* Protected routes */}
-      {!user && (
-        <>
-          <MainStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
-          <MainStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-        </>
-      )}
+    <UniverseTab.Navigator
+      backBehavior='none'
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#13141a',
+        tabBarLabelStyle: { fontSize: 12, fontWeight: '900' },
+        tabBarShowLabel: false,
+      }}
+    >
+      <UniverseTab.Screen
+        name='Home'
+        component={MyWebView}
+        options={{
+          tabBarIcon: ({ focused }) => <Text>Home</Text>,
+        }}
+      />
 
-      {user && <MainStack.Screen name='Universe' component={Universe} options={{ headerShown: false }} />}
-    </MainStack.Navigator>
+      <UniverseTab.Screen
+        name='Search'
+        component={Search}
+        options={{
+          tabBarIcon: ({ focused }) => <Text>Search</Text>,
+        }}
+      />
+
+      <UniverseTab.Screen
+        name='MyPet'
+        component={MyPet}
+        options={{
+          tabBarIcon: ({ focused }) => <Text>MyPet</Text>,
+        }}
+      />
+
+      <UniverseTab.Screen
+        name='Favorite'
+        component={Favorite}
+        options={{
+          tabBarIcon: ({ focused }) => <Text>Favorite</Text>,
+        }}
+      />
+
+      <UniverseTab.Screen
+        name='MyInfo'
+        component={MyInfo}
+        options={{
+          tabBarIcon: ({ focused }) => <Text>MyInfo</Text>,
+        }}
+      />
+    </UniverseTab.Navigator>
   )
 }
 
-export default Main
+export default Universe
