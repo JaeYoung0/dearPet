@@ -59,8 +59,6 @@ function MyInfo() {
             auth().signOut()
             setUser(null)
           }
-
-          navigation.navigate('Login', {})
         }}
       />
     </SafeAreaView>
