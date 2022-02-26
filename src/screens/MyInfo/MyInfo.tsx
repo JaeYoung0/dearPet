@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
 })
 
 function MyInfo() {
-  const navigation = useCustomNavi()
   const [user, setUser] = useRecoilState(userStatus)
 
   return (
