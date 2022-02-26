@@ -6,62 +6,71 @@ import Search from '@/screens/Search'
 import MyPet from '@/screens/MyPet'
 import Favorite from '@/screens/Favorite'
 import MyInfo from '@/screens/MyInfo'
+import styled from '@emotion/native'
 
 // screen에 BottomTabNavigator가 들어가네 ??
-const Universe = () => {
-  const UniverseTab = createBottomTabNavigator()
+const Main = () => {
+  const MainBottomTab = createBottomTabNavigator()
+
+  const TabText = styled.Text({
+    color: 'gray',
+    fontSize: 16,
+  })
 
   return (
-    <UniverseTab.Navigator
+    <MainBottomTab.Navigator
       backBehavior='none'
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#13141a',
         tabBarLabelStyle: { fontSize: 12, fontWeight: '900' },
         tabBarShowLabel: false,
+        tabBarActiveBackgroundColor: 'black',
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: 'blue',
+        tabBarInactiveBackgroundColor: 'black',
       }}
     >
-      <UniverseTab.Screen
+      <MainBottomTab.Screen
         name='Home'
         component={MyWebView}
         options={{
-          tabBarIcon: ({ focused }) => <Text>Home</Text>,
+          tabBarIcon: ({ focused }) => <TabText>Home</TabText>,
         }}
       />
 
-      <UniverseTab.Screen
+      <MainBottomTab.Screen
         name='Search'
         component={Search}
         options={{
-          tabBarIcon: ({ focused }) => <Text>Search</Text>,
+          tabBarIcon: ({ focused }) => <TabText>Search</TabText>,
         }}
       />
 
-      <UniverseTab.Screen
+      <MainBottomTab.Screen
         name='MyPet'
         component={MyPet}
         options={{
-          tabBarIcon: ({ focused }) => <Text>MyPet</Text>,
+          tabBarIcon: ({ focused }) => <TabText>MyPet</TabText>,
         }}
       />
 
-      <UniverseTab.Screen
+      <MainBottomTab.Screen
         name='Favorite'
         component={Favorite}
         options={{
-          tabBarIcon: ({ focused }) => <Text>Favorite</Text>,
+          tabBarIcon: ({ focused }) => <TabText>Favorite</TabText>,
         }}
       />
 
-      <UniverseTab.Screen
+      <MainBottomTab.Screen
         name='MyInfo'
         component={MyInfo}
         options={{
-          tabBarIcon: ({ focused }) => <Text>MyInfo</Text>,
+          tabBarIcon: ({ focused }) => <TabText>MyInfo</TabText>,
         }}
       />
-    </UniverseTab.Navigator>
+    </MainBottomTab.Navigator>
   )
 }
 
-export default Universe
+export default Main
