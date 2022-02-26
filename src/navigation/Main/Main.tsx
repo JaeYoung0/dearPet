@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MyWebView from '@/components/MyWebView'
-import { Text } from 'react-native'
 import Search from '@/screens/Search'
 import MyPet from '@/screens/MyPet'
 import Favorite from '@/screens/Favorite'
