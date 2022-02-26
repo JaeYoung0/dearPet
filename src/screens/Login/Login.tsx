@@ -4,16 +4,21 @@ import { Text, Alert, ScrollView, Button, View, StyleSheet, Image } from 'react-
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin'
 import auth from '@react-native-firebase/auth'
 import useCustomNavi from '@/hooks/useCustomNavi'
+import { useSetRecoilState } from 'recoil'
+import { userStatus } from '@/modules/user/atoms'
 
 function Login() {
   const [loggedIn, setloggedIn] = useState(false)
   const navigation = useCustomNavi()
+  const setUser = useSetRecoilState(userStatus)
 
   auth().onAuthStateChanged((user) => {
     if (user) {
       setloggedIn(true)
+      setUser(user)
     } else {
       setloggedIn(false)
+      setUser(null)
     }
   })
 
