@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 function MyPet() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#13141a' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#30165B' }}>
       <Text>MyPet</Text>
     </SafeAreaView>
   )

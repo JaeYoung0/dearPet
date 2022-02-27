@@ -21,16 +21,14 @@ function Entry() {
   })
 
   return (
-    <EntryStack.Navigator screenOptions={{ headerShown: false }}>
+    <EntryStack.Navigator screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
       {/* Protected routes */}
-
       {!me && (
         <>
           <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
           <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
         </>
       )}
-
       {me && <EntryStack.Screen name='Universe' component={Main} options={{ headerShown: false }} />}
     </EntryStack.Navigator>
   )
