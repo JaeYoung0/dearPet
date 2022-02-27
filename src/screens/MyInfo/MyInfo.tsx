@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet, Image, View } from 'react-native'
+import { Text, StyleSheet, Image, View, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import auth from '@react-native-firebase/auth'
 import { Button } from 'react-native'
@@ -7,6 +7,7 @@ import useCustomNavi from '@/hooks/useCustomNavi'
 // vs react-native-gesture-handler
 import { useRecoilState } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const styles = StyleSheet.create({
   screen: {
@@ -33,31 +34,52 @@ const styles = StyleSheet.create({
 })
 
 function MyInfo() {
-  const [user, setUser] = useRecoilState(userStatus)
+  const [me, setMe] = useRecoilState(userStatus)
+  const navi = useCustomNavi()
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
       <Text>MyInfo</Text>
 
-      {user && (
+      {me && (
         <View>
           <Text style={styles.title}>You're Logged In</Text>
-          <Image source={{ uri: user?.photoURL ?? '' }} style={styles.image} />
-          <Text style={styles.text}>{user?.displayName}</Text>
-          <Text style={styles.text}>{user?.email}</Text>
+          <Image source={{ uri: me?.photoURL ?? '' }} style={styles.image} />
+          <Text style={styles.text}>{me?.displayName}</Text>
+          <Text style={styles.text}>{me?.email}</Text>
           <View style={{ marginTop: 20 }} />
         </View>
       )}
 
       <View style={{ marginTop: 20 }} />
-
       <Button
         title='로그아웃'
-        onPress={() => {
-          if (auth().currentUser) {
-            auth().signOut()
-            setUser(null)
+        onPress={async () => {
+          // if (auth().currentUser) {
+          try {
+            setMe(null)
+            await auth().signOut()
+          } catch (err) {
+            console.error(err)
           }
+          // }
+        }}
+      />
+
+      <View style={{ marginTop: 20 }} />
+      <Button
+        title='clear async storage'
+        onPress={() => {
+          AsyncStorage.clear()
+          Alert.alert('스토리지를 비웠어요')
+        }}
+      />
+
+      <View style={{ marginTop: 20 }} />
+      <Button
+        title='@saw/welcome'
+        onPress={() => {
+          AsyncStorage.getItem('@saw/welcome').then((res) => Alert.alert(res ?? 'null이라네'))
         }}
       />
     </SafeAreaView>

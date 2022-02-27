@@ -2,30 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin'
 import auth from '@react-native-firebase/auth'
-import { useSetRecoilState } from 'recoil'
+import { useSetRecoilState, useRecoilState } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
 import { handleSignInError } from './helper'
 
 function Login() {
-  const [loggedIn, setloggedIn] = useState(false)
-  const setUser = useSetRecoilState(userStatus)
-
-  auth().onAuthStateChanged((user) => {
-    if (user) {
-      setUser(user)
-    } else {
-      setUser(null)
-    }
-  })
+  const [me, setMe] = useRecoilState(userStatus)
 
   const signIn = async () => {
     try {
       // const { accessToken, idToken } = await GoogleSignin.signIn()
       const { idToken } = await GoogleSignin.signIn()
-      setloggedIn(true)
 
       const googleCredential = auth.GoogleAuthProvider.credential(idToken)
-      return auth().signInWithCredential(googleCredential)
+      const UserCredential = await auth().signInWithCredential(googleCredential)
+      setMe(UserCredential.user)
     } catch (error) {
       handleSignInError(error)
     }
@@ -42,7 +33,7 @@ function Login() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#30165B' }}>
-      {!loggedIn && (
+      {!me && (
         <GoogleSigninButton
           style={{ width: 192, height: 48 }}
           size={GoogleSigninButton.Size.Wide}

@@ -1,35 +1,37 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Main from '@/navigation/Main'
 import Welcome from '@/screens/Welcome'
 import Login from '@/screens/Login'
 import { useRecoilValue } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
-import { Alert } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getStorage } from '@/modules/storage/helper'
+import useCustomNavi from '@/hooks/useCustomNavi'
 
 const EntryStack = createStackNavigator()
 
 function Entry() {
-  const user = useRecoilValue(userStatus)
-  Alert.alert(`${JSON.stringify(user)}`)
-  console.log(user)
+  const me = useRecoilValue(userStatus)
+  const navigation = useCustomNavi()
 
-  const showWelcome = !AsyncStorage.getItem('@saw/welcome')
-  useEffect(() => {
-    Alert.alert(`showWelcome: ${showWelcome}`)
-  }, [showWelcome])
+  getStorage('@saw/welcome').then((data) => {
+    if (!data) {
+      navigation.navigate('Welcome', {})
+    }
+  })
+
   return (
     <EntryStack.Navigator screenOptions={{ headerShown: false }}>
       {/* Protected routes */}
-      {!user && (
+
+      {!me && (
         <>
-          {showWelcome && <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />}
           <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+          <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
         </>
       )}
 
-      {user && <EntryStack.Screen name='Universe' component={Main} options={{ headerShown: false }} />}
+      {me && <EntryStack.Screen name='Universe' component={Main} options={{ headerShown: false }} />}
     </EntryStack.Navigator>
   )
 }

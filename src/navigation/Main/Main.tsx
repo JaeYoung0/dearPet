@@ -33,7 +33,7 @@ const Main = () => {
         name='Home'
         component={MyWebView}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>He</TabText>,
+          tabBarIcon: ({ focused }) => <TabText>Home</TabText>,
         }}
       />
 

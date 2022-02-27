@@ -6,7 +6,7 @@ import { styles } from './Welcome.style'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import { useRecoilValue } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setStorage } from '@/modules/storage/helper'
 
 const Welcome = () => {
   const navigation = useCustomNavi()
@@ -48,8 +48,7 @@ const Welcome = () => {
           onPress={() => {
             if (!user) {
               navigation.navigate('Login', {})
-              // FIXME: type으로 한 번 감싸기
-              AsyncStorage.setItem('@saw/welcome', '1')
+              setStorage('@saw/welcome', true)
             } else {
               navigation.navigate('Main', {})
             }
