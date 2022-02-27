@@ -31,6 +31,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^9.1.0",
+    "react-native-video": "^5.2.0",
     "react-native-webview": "^11.17.2",
     "recoil": "^0.6.1"
   },
@@ -41,6 +42,7 @@
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.66.15",
     "@types/react-native-vector-icons": "^6.4.10",
+    "@types/react-native-video": "^5.0.12",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",

@@ -28,6 +28,13 @@ buildscript {
 
 allprojects {
     repositories {
+        // for react-native-video error : 
+        // https://github.com/react-native-video/react-native-video/issues/2468
+        jcenter() {
+            content {
+                includeModule("com.yqritc", "android-scalablevideoview")
+            }
+        }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
