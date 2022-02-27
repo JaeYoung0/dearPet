@@ -5,16 +5,26 @@ import Search from '@/screens/Search'
 import MyPet from '@/screens/MyPet'
 import Favorite from '@/screens/Favorite'
 import MyInfo from '@/screens/MyInfo'
-import styled from '@emotion/native'
+import styled, { css } from '@emotion/native'
+
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+// const myIcon =;
 
 // screen에 BottomTabNavigator가 들어가네 ??
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()
 
-  const TabText = styled.Text({
-    color: 'gray',
-    fontSize: 16,
-  })
+  const TabText = styled.Text<{ focused: boolean }>`
+    color: 'gray';
+
+    ${({ focused }) =>
+      focused &&
+      css`
+        color: 'blue';
+      `}
+    font-size: 16px;
+  `
 
   return (
     <MainBottomTab.Navigator
@@ -22,18 +32,18 @@ const Main = () => {
       screenOptions={{
         headerShown: false,
         tabBarLabelStyle: { fontSize: 12, fontWeight: '900' },
-        tabBarShowLabel: false,
+        // tabBarShowLabel: false,
         tabBarActiveBackgroundColor: 'black',
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: 'blue',
         tabBarInactiveBackgroundColor: 'black',
+        tabBarInactiveTintColor: '#706868',
+        tabBarActiveTintColor: '#fff',
       }}
     >
       <MainBottomTab.Screen
         name='Home'
         component={MyWebView}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>Home</TabText>,
+          tabBarIcon: ({ focused }) => <MaterialIcons name='home' size={30} />,
         }}
       />
 
@@ -41,7 +51,7 @@ const Main = () => {
         name='Search'
         component={Search}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>Search</TabText>,
+          tabBarIcon: ({ focused }) => <MaterialIcons name='search' size={30} />,
         }}
       />
 
@@ -49,7 +59,7 @@ const Main = () => {
         name='MyPet'
         component={MyPet}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>MyPet</TabText>,
+          tabBarIcon: ({ focused }) => <MaterialIcons name='pets' size={30} />,
         }}
       />
 
@@ -57,7 +67,7 @@ const Main = () => {
         name='Favorite'
         component={Favorite}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>Favorite</TabText>,
+          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name='heart-outline' size={30} />,
         }}
       />
 
@@ -65,7 +75,7 @@ const Main = () => {
         name='MyInfo'
         component={MyInfo}
         options={{
-          tabBarIcon: ({ focused }) => <TabText>MyInfo</TabText>,
+          tabBarIcon: ({ focused }) => <MaterialIcons name='person' size={30} />,
         }}
       />
     </MainBottomTab.Navigator>
