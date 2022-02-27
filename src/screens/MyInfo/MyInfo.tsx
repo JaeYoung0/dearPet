@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
 
 function MyInfo() {
   const [me, setMe] = useRecoilState(userStatus)
-  const navi = useCustomNavi()
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>

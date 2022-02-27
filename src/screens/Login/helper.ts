@@ -20,6 +20,8 @@ export function handleSignInError(error: unknown) {
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
       Alert.alert('PLAY_SERVICES_NOT_AVAILABLE')
       // play services not available or outdated
+    } else {
+      Alert.alert(JSON.stringify(error))
     }
   }
 }
