@@ -1,15 +1,14 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MyWebView from '@/components/MyWebView'
 import Search from '@/screens/Search'
 import MyPet from '@/screens/MyPet'
 import Favorite from '@/screens/Favorite'
 import MyInfo from '@/screens/MyInfo'
+import Universe from '@/screens/Universe'
 import styled, { css } from '@emotion/native'
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-// const myIcon =;
 
 // screen에 BottomTabNavigator가 들어가네 ??
 const Main = () => {
@@ -41,7 +40,7 @@ const Main = () => {
     >
       <MainBottomTab.Screen
         name='Home'
-        component={MyWebView}
+        component={Universe}
         options={{
           tabBarIcon: ({ focused }) => <MaterialIcons name='home' size={30} />,
         }}
