@@ -136,7 +136,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.5"
+        versionName "1.0.6"
     }
     splits {
         abi {
@@ -192,8 +192,8 @@ android {
 dependencies {
     compile project(':react-native-video')
     implementation "androidx.appcompat:appcompat:1.0.0"
-    // implementation(project(":react-native-google-signin")) 
-    
+    // implementation(project(":react-native-google-signin"))
+
     // Import the Firebase BoM
     // 앱에서 Firebase BoM을 사용하면 BoM의 버전에 매핑된 개별 라이브러리 버전을 BoM이 자동으로 가져옵니다. 모든 개별 라이브러리 버전은 호환됩니다. 앱에서 BoM 버전을 업데이트하면 앱에서 사용하는 모든 Firebase 라이브러리가 해당 BoM 버전에 매핑된 버전으로 업데이트됩니다.
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
@@ -203,10 +203,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
 
 
-    
-    
 
-    
+
+
+
 
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -245,5 +245,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle"); 
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line
