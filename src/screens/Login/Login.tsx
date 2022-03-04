@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin'
 import auth from '@react-native-firebase/auth'
 import { useRecoilState } from 'recoil'
-import { userStatus } from '@/modules/user/atoms'
+import { User, userStatus } from '@/modules/user/atoms'
 import { handleSignInError } from './helper'
 import * as UserService from '@/server/users/service'
 import { GOOGLE_CLIENT_ID } from '@env'
@@ -22,7 +22,7 @@ function Login() {
       console.log('@@googleAuthUser', googleAuthUser)
 
       const { uid, displayName, photoURL, phoneNumber, email } = googleAuthUser
-      const foundUser = await UserService.getUser(uid)
+      const foundUser = (await UserService.getUser(uid)) as User
 
       if (!foundUser) {
         await UserService.createUser({
@@ -32,7 +32,7 @@ function Login() {
           phoneNumber,
           email,
         })
-        setMe({ id: uid, displayName: displayName ?? '', photoURL })
+        setMe({ uid, displayName: displayName ?? '', photoURL: photoURL ?? '', email, phoneNumber })
       } else {
         setMe(foundUser)
       }

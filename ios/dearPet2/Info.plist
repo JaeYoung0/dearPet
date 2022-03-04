@@ -50,6 +50,15 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>noders-1이 사진첩에 접근하려고 합니다.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>noders-1이 카메라에 접근하려고 합니다.</string>
+
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>noders-1이 갤러리에 사진을 저장하려고 합니다.</string>
+
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 package com.dearpet2;
 
+import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.brentvatne.react.ReactVideoPackage;
 import android.app.Application;
 import android.content.Context;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           packages.add(new ReactVideoPackage());
+          // packages.add(new ReactNativeFirebaseStoragePackage());
           return packages;
         }
 
