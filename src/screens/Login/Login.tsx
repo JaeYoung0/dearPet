@@ -32,7 +32,7 @@ function Login() {
           phoneNumber,
           email,
         })
-        setMe({ uid, displayName: displayName ?? '', photoURL: photoURL ?? '', email, phoneNumber })
+        setMe({ id: uid, displayName: displayName ?? '', photoURL: photoURL ?? '', email, phoneNumber })
       } else {
         setMe(foundUser)
       }
