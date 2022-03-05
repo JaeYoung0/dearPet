@@ -8,9 +8,9 @@ import useAvatar from './useAvatar'
 
 function Avatar() {
   const me = useRecoilValue(userStatus)
+  const { isUploading, onSelectImage } = useAvatar()
 
   if (!me) return <SafeAreaView style={{ flex: 1, backgroundColor: '#30165B' }}></SafeAreaView>
-  const { isUploading, onSelectImage } = useAvatar()
 
   return (
     <Pressable onPress={onSelectImage}>
