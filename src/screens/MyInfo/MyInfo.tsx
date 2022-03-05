@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Text, StyleSheet, Image, View, Alert, Platform, Pressable, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { Text, StyleSheet, View, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import auth from '@react-native-firebase/auth'
 import { Button } from 'react-native'
-import useCustomNavi from '@/hooks/useCustomNavi'
 // vs react-native-gesture-handler
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -42,9 +41,6 @@ function MyInfo() {
 
       <View>
         <Text style={styles.title}>You're Logged In</Text>
-
-        {/* <Text style={styles.text}>{me?.displayName}</Text> */}
-        {/* <Text style={styles.text}>{me?.email}</Text> */}
         <View style={{ marginTop: 20 }} />
       </View>
 
@@ -65,7 +61,7 @@ function MyInfo() {
       <Button
         title='clear async storage'
         onPress={() => {
-          AsyncStorage.clear()
+          void AsyncStorage.clear()
           Alert.alert('스토리지를 비웠어요')
         }}
       />
@@ -74,7 +70,7 @@ function MyInfo() {
       <Button
         title='@saw/welcome'
         onPress={() => {
-          AsyncStorage.getItem('@saw/welcome').then((res) => Alert.alert(res ?? 'null이라네'))
+          void AsyncStorage.getItem('@saw/welcome').then((res) => Alert.alert(res ?? 'null이라네'))
         }}
       />
     </SafeAreaView>
