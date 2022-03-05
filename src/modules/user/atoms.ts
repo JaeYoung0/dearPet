@@ -1,14 +1,7 @@
 import { atom } from 'recoil'
+import { UserModel } from '@/server/users/model'
 
-export type User = {
-  displayName: string
-  email: string | null
-  id: string
-  phoneNumber: string | null
-  photoURL: string
-} | null
-
-export const userStatus = atom<User>({
+export const userStatus = atom<UserModel | null>({
   key: 'user',
   default: null,
 })

@@ -3,7 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin'
 import auth from '@react-native-firebase/auth'
 import { useRecoilState } from 'recoil'
-import { User, userStatus } from '@/modules/user/atoms'
+import { userStatus } from '@/modules/user/atoms'
+import { UserModel } from '@/server/users/model'
 import { handleSignInError } from './helper'
 import * as UserService from '@/server/users/service'
 import { GOOGLE_CLIENT_ID } from '@env'
@@ -22,17 +23,23 @@ function Login() {
       console.log('@@googleAuthUser', googleAuthUser)
 
       const { uid, displayName, photoURL, phoneNumber, email } = googleAuthUser
-      const foundUser = (await UserService.getUser(uid)) as User
+      const foundUser = (await UserService.getUser(uid)) as UserModel
 
       if (!foundUser) {
         await UserService.createUser({
-          id: uid,
-          displayName,
-          photoURL,
-          phoneNumber,
-          email,
+          licenseId: uid,
+          displayName: displayName ?? '',
+          photoURL: photoURL ?? '',
+          phoneNumber: photoURL ?? '',
+          email: email ?? '',
         })
-        setMe({ id: uid, displayName: displayName ?? '', photoURL: photoURL ?? '', email, phoneNumber })
+        setMe({
+          licenseId: uid,
+          displayName: displayName ?? '',
+          photoURL: photoURL ?? '',
+          email: email ?? '',
+          phoneNumber: phoneNumber ?? '',
+        })
       } else {
         setMe(foundUser)
       }
@@ -43,8 +50,6 @@ function Login() {
 
   useEffect(() => {
     GoogleSignin.configure({
-      // what API you want to access on behalf of the user, default is email and profile
-      // scopes: ['email'],
       webClientId: GOOGLE_CLIENT_ID,
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
     })
