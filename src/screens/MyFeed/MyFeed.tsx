@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Avatar from '@/components/Avatar'
 import { Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as S from './MyFeed.style'
 
 import { userStatus } from '@/modules/user/atoms'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import MyIcons from '@/components/MyIcons'
+import { allPosts } from '@/server/posts/service'
+import { postsStatus } from '@/modules/posts/atoms'
+import PostThumbnail from '@/components/PostThumbnail'
 
 function MyFeed() {
   const me = useRecoilValue(userStatus)
 
   const navigation = useCustomNavi()
+  const [myPosts, setMyPosts] = useRecoilState(postsStatus)
+
+  useEffect(() => {
+    if (!me) return
+    async function getPosts(licenseId: string) {
+      const result = await allPosts(licenseId)
+      console.log('@@result', result)
+
+      setMyPosts([...result])
+    }
+
+    void getPosts(me.licenseId)
+  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', paddingTop: 50 }}>
@@ -39,7 +55,11 @@ function MyFeed() {
 잊지 않을거야. 약속할게. 사랑해.`}</S.IntroductionText>
       </View>
 
-      <View style={{ flex: 3 }}></View>
+      <View style={{ flex: 3 }}>
+        {myPosts?.map((item, idx) => (
+          <PostThumbnail key={item.id} title={item.title} content={item.content} />
+        ))}
+      </View>
     </SafeAreaView>
   )
 }
