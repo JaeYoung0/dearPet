@@ -14,7 +14,7 @@ function useAvatar() {
   const uploadImg = async (asset: Asset, ext: string) => {
     if (!me) return
 
-    const reference = storage().ref(`/images/profile/${me.id}.${ext}`)
+    const reference = storage().ref(`/images/profile/${me.licenseId}.${ext}`)
 
     if (Platform.OS === 'android' && asset.base64) {
       await reference.putString(asset.base64, 'base64', {
@@ -26,7 +26,7 @@ function useAvatar() {
   }
 
   const onSelectImage = () => {
-    launchImageLibrary(
+    void launchImageLibrary(
       {
         mediaType: 'photo',
         maxWidth: 512,
@@ -38,7 +38,7 @@ function useAvatar() {
         const asset = res.assets[0]
         // FIXME: 확장자 webp로 고정. webp사용하기. cloud function ?
         const ext = asset.fileName?.split('.').pop()!
-        const reference = storage().ref(`/images/profile/${me.id}.${ext}`)
+        const reference = storage().ref(`/images/profile/${me.licenseId}.${ext}`)
 
         setIsUploading(true)
 
@@ -52,7 +52,7 @@ function useAvatar() {
 
         const photoURL = await reference.getDownloadURL()
         updateUserPhotoUrl({
-          licenseId: me.id,
+          licenseId: me.licenseId,
           photoURL,
         })
 
