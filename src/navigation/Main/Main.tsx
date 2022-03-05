@@ -1,40 +1,26 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Search from '@/screens/Search'
-import MyPet from '@/screens/MyPet'
+
 import Favorite from '@/screens/Favorite'
 import MyInfo from '@/screens/MyInfo'
 import Universe from '@/screens/Universe'
-import styled, { css } from '@emotion/native'
+import MyIcons from '@/components/MyIcons'
+import MyPet from '@/navigation/MyPet'
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
-// screen에 BottomTabNavigator가 들어가네 ??
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()
-
-  const TabText = styled.Text<{ focused: boolean }>`
-    color: 'gray';
-
-    ${({ focused }) =>
-      focused &&
-      css`
-        color: 'blue';
-      `}
-    font-size: 16px;
-  `
 
   return (
     <MainBottomTab.Navigator
       backBehavior='none'
       screenOptions={{
         headerShown: false,
+        tabBarStyle: { borderTopWidth: 0 },
         tabBarLabelStyle: { fontSize: 12, fontWeight: '900' },
-        // tabBarShowLabel: false,
-        tabBarActiveBackgroundColor: 'black',
-        tabBarInactiveBackgroundColor: 'black',
-        tabBarInactiveTintColor: '#706868',
+        tabBarShowLabel: false,
+        tabBarActiveBackgroundColor: '#222222',
+        tabBarInactiveBackgroundColor: '#222222',
+        tabBarInactiveTintColor: '#595555',
         tabBarActiveTintColor: '#fff',
       }}
     >
@@ -42,15 +28,7 @@ const Main = () => {
         name='Home'
         component={Universe}
         options={{
-          tabBarIcon: ({ focused }) => <MaterialIcons name='home' size={30} />,
-        }}
-      />
-
-      <MainBottomTab.Screen
-        name='Search'
-        component={Search}
-        options={{
-          tabBarIcon: ({ focused }) => <MaterialIcons name='search' size={30} />,
+          tabBarIcon: ({ focused }) => <MyIcons name='Universe' focused={focused} />,
         }}
       />
 
@@ -58,7 +36,7 @@ const Main = () => {
         name='MyPet'
         component={MyPet}
         options={{
-          tabBarIcon: ({ focused }) => <MaterialIcons name='pets' size={30} />,
+          tabBarIcon: ({ focused }) => <MyIcons name='Planet' focused={focused} />,
         }}
       />
 
@@ -66,7 +44,7 @@ const Main = () => {
         name='Favorite'
         component={Favorite}
         options={{
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name='heart-outline' size={30} />,
+          tabBarIcon: ({ focused }) => <MyIcons name='Compass' focused={focused} />,
         }}
       />
 
@@ -74,7 +52,7 @@ const Main = () => {
         name='MyInfo'
         component={MyInfo}
         options={{
-          tabBarIcon: ({ focused }) => <MaterialIcons name='person' size={30} />,
+          tabBarIcon: ({ focused }) => <MyIcons name='Person' focused={focused} />,
         }}
       />
     </MainBottomTab.Navigator>
