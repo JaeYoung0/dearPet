@@ -20,11 +20,12 @@ export async function fetchPosts(licenseId?: string): Promise<PostModel[]> {
 }
 
 export function createPost(payload: CreatePostDto) {
-  const { title, content, user } = payload
+  const { title, content, user, photoURL } = payload
   return postsCollection.add({
     user,
     title,
     content,
     createdAt: firestore.FieldValue.serverTimestamp(),
+    photoURL,
   })
 }

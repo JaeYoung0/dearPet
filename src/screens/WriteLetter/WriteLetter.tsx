@@ -9,23 +9,36 @@ import { userStatus } from '@/modules/user/atoms'
 import { useRecoilValue } from 'recoil'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import usePosts from '@/modules/posts/usePosts'
+import AssetUploader from '@/components/AssetUploader'
+import { useRecoilState } from 'recoil'
+import { assetStatus } from '@/modules/uploader/atom'
+import useUploadImages from '@/hooks/useUploadImages'
 
 function WriteLetter() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [assets, setAssets] = useRecoilState(assetStatus)
+  const { uploadImages } = useUploadImages({
+    path: '/images/post',
+  })
+
   const me = useRecoilValue(userStatus)
   const navigation = useCustomNavi()
   const { refetch } = usePosts()
   if (!me) return null
 
-  const onSave = async () => {
+  const handleSubmit = async () => {
     if (!title || !content) {
       return Alert.alert('빈칸을 채워주세요.')
     }
 
     try {
-      // FIXME: post작성하고나서 업데이트하기
-      await createPost({ user: me, title, content })
+      const photoURL = await uploadImages()
+      console.log('@@@@@@@@@@@@@@@photoURL', photoURL)
+
+      if (!photoURL) return
+      await createPost({ user: me, title, content, photoURL })
+      setAssets(null)
       await refetch()
       navigation.goBack()
     } catch (error) {
@@ -36,7 +49,7 @@ function WriteLetter() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', padding: 25 }}>
       <View style={{ marginBottom: 10 }}>
-        <Header title='편지쓰기' onSave={onSave} />
+        <Header title='편지쓰기' onSubmit={handleSubmit} />
       </View>
       <Text style={{ fontSize: 12, color: '#7E71F3', marginBottom: 30 }}>로아에게 보내는 첫번째 편지</Text>
       <TextInput
@@ -65,7 +78,7 @@ function WriteLetter() {
           alignItems: 'center',
         }}
       >
-        <MyIcons name='SquarePlus' />
+        <AssetUploader />
       </View>
     </SafeAreaView>
   )

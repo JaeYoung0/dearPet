@@ -6,6 +6,7 @@ export type PostModel = {
   title: string
   content: string
   createdAt: FirebaseFirestoreTypes.FieldValue
+  photoURL: string[]
 
   // firestore 복합색인도 타입에 추가
   ['user.licenseId']?: string
