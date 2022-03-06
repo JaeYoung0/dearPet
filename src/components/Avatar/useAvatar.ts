@@ -51,7 +51,7 @@ function useAvatar() {
          */
 
         const photoURL = await reference.getDownloadURL()
-        updateUserPhotoUrl({
+        await updateUserPhotoUrl({
           licenseId: me.licenseId,
           photoURL,
         })

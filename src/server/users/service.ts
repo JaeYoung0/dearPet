@@ -18,7 +18,7 @@ export function createUser(payload: CreateUserDto) {
 export function updateUserPhotoUrl(payload: UpdateUserPhotoUrlDto) {
   const { licenseId, photoURL } = payload
 
-  usersCollection.doc(licenseId).update({
+  return usersCollection.doc(licenseId).update({
     photoURL,
   })
 }
