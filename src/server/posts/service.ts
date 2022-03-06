@@ -4,7 +4,7 @@ import { PostModel } from './model'
 
 const postsCollection = firestore().collection<PostModel | Omit<PostModel, 'id'>>('Posts')
 
-export async function allPosts(licenseId?: string) {
+export async function fetchPosts(licenseId?: string): Promise<PostModel[]> {
   let query = postsCollection.orderBy('createdAt', 'desc')
 
   if (licenseId) {
