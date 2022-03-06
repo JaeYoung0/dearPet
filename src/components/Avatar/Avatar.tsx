@@ -1,16 +1,16 @@
 import React from 'react'
-import { userStatus } from '@/modules/user/atoms'
-import { useRecoilValue } from 'recoil'
-import { Pressable, ActivityIndicator, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Pressable, ActivityIndicator } from 'react-native'
 import * as S from './Avatar.style'
 import useAvatar from './useAvatar'
-
+import { userStatus } from '@/modules/user/atoms'
+import { useRecoilValue } from 'recoil'
+import LoadingIndicator from '../LoadingIndicator'
 function Avatar() {
   const me = useRecoilValue(userStatus)
-  const { isUploading, onSelectImage } = useAvatar()
 
-  if (!me) return <SafeAreaView style={{ flex: 1, backgroundColor: '#30165B' }}></SafeAreaView>
+  const { onSelectImage, isUploading } = useAvatar()
+
+  if (!me) return <LoadingIndicator />
 
   return (
     <Pressable onPress={onSelectImage}>
