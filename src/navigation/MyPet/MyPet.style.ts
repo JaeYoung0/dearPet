@@ -11,7 +11,7 @@ export const DisplayName = styled.Text`
 export const IntroductionText = styled.Text`
   font-weight: 500;
   font-size: 12px;
-  line-height: 18;
+  line-height: 18px;
   text-align: center;
   color: #ffffff;
 `
