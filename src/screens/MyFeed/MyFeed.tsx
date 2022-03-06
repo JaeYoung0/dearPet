@@ -1,34 +1,31 @@
 import React, { useEffect } from 'react'
 import Avatar from '@/components/Avatar'
-import { Pressable, Text, View } from 'react-native'
+import { Alert, Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as S from './MyFeed.style'
 
 import { userStatus } from '@/modules/user/atoms'
 import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import useCustomNavi from '@/hooks/useCustomNavi'
+import useRefreshByUser from '@/hooks/useRefreshByUser'
+import useRefreshOnFocus from '@/hooks/useRefreshOnFocus'
 import MyIcons from '@/components/MyIcons'
-import { allPosts } from '@/server/posts/service'
-import { postsStatus } from '@/modules/posts/atoms'
 import PostThumbnail from '@/components/PostThumbnail'
+import usePosts from '@/modules/posts/usePosts'
+import LoadingIndicator from '@/components/LoadingIndicator'
 
 function MyFeed() {
   const me = useRecoilValue(userStatus)
 
   const navigation = useCustomNavi()
-  const [myPosts, setMyPosts] = useRecoilState(postsStatus)
 
-  useEffect(() => {
-    if (!me) return
-    async function getPosts(licenseId: string) {
-      const result = await allPosts(licenseId)
-      console.log('@@result', result)
+  const { data: myPosts, refetch, isLoading, isFetching, error } = usePosts()
+  // const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 
-      setMyPosts([...result])
-    }
+  // 여기서 refetch되면 re-render됨
+  // useRefreshOnFocus(refetch)
 
-    void getPosts(me.licenseId)
-  }, [])
+  if (isLoading || error) return <LoadingIndicator />
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', paddingTop: 50 }}>

@@ -6,10 +6,6 @@ import MyInfo from '@/screens/MyInfo'
 import Universe from '@/screens/Universe'
 import MyIcons from '@/components/MyIcons'
 import MyPet from '@/navigation/MyPet'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { postsStatus } from '@/modules/posts/atoms'
-import { userStatus } from '@/modules/user/atoms'
-import { allPosts } from '@/server/posts/service'
 
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()

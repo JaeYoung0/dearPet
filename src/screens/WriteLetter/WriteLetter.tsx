@@ -8,12 +8,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { userStatus } from '@/modules/user/atoms'
 import { useRecoilValue } from 'recoil'
 import useCustomNavi from '@/hooks/useCustomNavi'
+import usePosts from '@/modules/posts/usePosts'
 
 function WriteLetter() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const me = useRecoilValue(userStatus)
   const navigation = useCustomNavi()
+  const { refetch } = usePosts()
   if (!me) return null
 
   const onSave = async () => {
@@ -22,7 +24,9 @@ function WriteLetter() {
     }
 
     try {
+      // FIXME: post작성하고나서 업데이트하기
       await createPost({ user: me, title, content })
+      await refetch()
       navigation.goBack()
     } catch (error) {
       console.error(error)
