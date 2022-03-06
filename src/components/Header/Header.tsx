@@ -6,9 +6,9 @@ import MyIcons from '../MyIcons'
 
 type Props = {
   title: string
-  onSave: () => void
+  onSubmit: () => void
 }
-function Header({ title, onSave }: Props) {
+function Header({ title, onSubmit }: Props) {
   const navigation = useCustomNavi()
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -24,7 +24,7 @@ function Header({ title, onSave }: Props) {
         <Text style={{ fontSize: 16 }}>{title}</Text>
       </View>
 
-      <Pressable onPress={onSave}>
+      <Pressable onPress={onSubmit}>
         <MyIcons name='Check' color='#fff' />
       </Pressable>
     </View>
