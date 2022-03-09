@@ -5,7 +5,9 @@ export type PostModel = {
   user: UserModel
   title: string
   content: string
-  createdAt: FirebaseFirestoreTypes.FieldValue
+  createdAt: FirebaseFirestoreTypes.FieldValue & {
+    seconds?: number
+  }
   photoURL: string[]
 
   // firestore 복합색인도 타입에 추가
