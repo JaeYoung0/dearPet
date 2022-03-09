@@ -51,7 +51,7 @@ const useAuth = () => {
     kakao: () => {},
     naver: () => {},
     apple: () => {},
-  }
+  } as const
 
   useEffect(() => {
     GoogleSignin.configure({

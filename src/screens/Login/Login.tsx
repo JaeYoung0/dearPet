@@ -71,7 +71,7 @@ function LoginButton({ type, toggle }: LoginButtonProps) {
           if (type === 'etc') {
             toggle?.()
           } else {
-            socialLogin[type]
+            socialLogin[type]()
           }
         }}
       >
