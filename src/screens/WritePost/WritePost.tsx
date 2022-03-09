@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import MyIcons from '@/components/MyIcons'
 import { createPost } from '@/server/posts/service'
 import React, { useState } from 'react'
-import { Alert, Text, View } from 'react-native'
+import { Alert, Pressable, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { userStatus } from '@/modules/user/atoms'
@@ -14,7 +14,7 @@ import { useRecoilState } from 'recoil'
 import { assetStatus } from '@/modules/uploader/atom'
 import useUploadImages from '@/hooks/useUploadImages'
 
-function WriteLetter() {
+function WritePost() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [assets, setAssets] = useRecoilState(assetStatus)
@@ -49,7 +49,15 @@ function WriteLetter() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', padding: 25 }}>
       <View style={{ marginBottom: 10 }}>
-        <Header title='편지쓰기' onSubmit={handleSubmit} />
+        <Header
+          back
+          title='편지쓰기'
+          Icons={[
+            <Pressable onPress={handleSubmit}>
+              <MyIcons name='Check' />
+            </Pressable>,
+          ]}
+        />
       </View>
       <Text style={{ fontSize: 12, color: '#7E71F3', marginBottom: 30 }}>로아에게 보내는 첫번째 편지</Text>
       <TextInput
@@ -84,4 +92,4 @@ function WriteLetter() {
   )
 }
 
-export default WriteLetter
+export default WritePost
