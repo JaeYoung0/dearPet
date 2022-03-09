@@ -5,28 +5,34 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import MyIcons from '../MyIcons'
 
 type Props = {
-  title: string
-  onSubmit: () => void
+  title?: string
+  back?: boolean
+  Icons?: JSX.Element[]
 }
-function Header({ title, onSubmit }: Props) {
+function Header({ title, Icons, back }: Props) {
   const navigation = useCustomNavi()
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Pressable
-          style={{ marginRight: 20 }}
-          onPress={() => {
-            navigation.goBack()
-          }}
-        >
-          <MyIcons name='Arrow' />
-        </Pressable>
-        <Text style={{ fontSize: 16 }}>{title}</Text>
+        {back && (
+          <Pressable
+            style={{ marginRight: 20, width: 15, height: 15 }}
+            onPress={() => {
+              navigation.goBack()
+            }}
+          >
+            <MyIcons name='Arrow' />
+          </Pressable>
+        )}
+
+        {title && <Text style={{ fontSize: 18 }}>{title}</Text>}
       </View>
 
-      <Pressable onPress={onSubmit}>
-        <MyIcons name='Check' color='#fff' />
-      </Pressable>
+      <View style={{ flexDirection: 'row' }}>
+        {Icons?.map((icon) => (
+          <View style={{ marginLeft: 20 }}>{icon}</View>
+        ))}
+      </View>
     </View>
   )
 }
