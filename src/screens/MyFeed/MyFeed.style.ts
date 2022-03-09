@@ -3,7 +3,6 @@ import styled, { css } from '@emotion/native'
 export const DisplayName = styled.Text`
   font-weight: 600;
   font-size: 20px;
-  /* line-height: 130%; */
   text-align: center;
   color: #ffffff;
   margin-bottom: 10px;
@@ -12,9 +11,13 @@ export const DisplayName = styled.Text`
 export const IntroductionText = styled.Text`
   font-weight: 500;
   font-size: 12px;
-  line-height: 18;
+  line-height: 18px;
 
   text-align: center;
 
   color: #ffffff;
+`
+
+export const ScrollView = styled.ScrollView`
+  flex: 1;
 `

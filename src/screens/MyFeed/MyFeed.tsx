@@ -31,7 +31,7 @@ function MyFeed() {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', paddingTop: 50 }}>
       <Pressable
         style={{ position: 'absolute', top: 15, right: 55 }}
-        onPress={() => navigation.navigate('WriteLetter', {})}
+        onPress={() => navigation.navigate('WritePost', {})}
       >
         <MyIcons name='SquarePlus' />
       </Pressable>
@@ -40,11 +40,11 @@ function MyFeed() {
         <MyIcons name='Hamburger' />
       </Pressable>
 
-      <View style={{ flex: 1, alignItems: 'center', marginBottom: 30 }}>
+      <View style={{ alignItems: 'center', marginBottom: 30 }}>
         <Avatar />
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={{ marginBottom: 30 }}>
         <S.DisplayName>{me?.displayName}</S.DisplayName>
         <S.IntroductionText>{`나에게 조건없는 사랑을 알려준 우리 가족 로이.
 12년간 나와 함께해줘서, 내 삶을 바꿔줘서 고마워.
@@ -52,11 +52,13 @@ function MyFeed() {
 잊지 않을거야. 약속할게. 사랑해.`}</S.IntroductionText>
       </View>
 
-      <View style={{ flex: 3 }}>
+      <S.ScrollView style={{ padding: 20 }}>
         {myPosts?.map((item, idx) => (
-          <PostThumbnail key={item.id} title={item.title} content={item.content} />
+          <Pressable onPress={() => navigation.navigate('PostCard', { postId: item.id })}>
+            <PostThumbnail key={item.id} post={item} order={idx} />
+          </Pressable>
         ))}
-      </View>
+      </S.ScrollView>
     </SafeAreaView>
   )
 }
