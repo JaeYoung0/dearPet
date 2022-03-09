@@ -1,16 +1,26 @@
+import { PostModel } from '@/server/posts/model'
 import React from 'react'
-import { Text, View } from 'react-native'
+import * as S from './PostThumbnail.style'
+import dayjs from 'dayjs'
 
 type Props = {
-  title: string
-  content: string
+  post: PostModel
+  order: number
 }
-function PostThumbnail({ title, content }: Props) {
+function PostThumbnail({ post, order }: Props) {
+  console.log(post)
   return (
-    <View style={{ backgroundColor: 'transparent', marginBottom: 20 }}>
-      <Text>{title}</Text>
-      <Text>{content}</Text>
-    </View>
+    <S.Container>
+      <S.LeftColumn>
+        <S.Image source={{ uri: post.photoURL[0] }} />
+      </S.LeftColumn>
+      <S.RightColumn>
+        <S.Label>{order + 1}번째 편지</S.Label>
+        <S.Title>{post.title}</S.Title>
+        <S.BodyText numberOfLines={3}>{post.content}</S.BodyText>
+        <S.Date>{dayjs((post?.createdAt.seconds ?? 0) * 1000).format('YYYY.MM.DD')}</S.Date>
+      </S.RightColumn>
+    </S.Container>
   )
 }
 
