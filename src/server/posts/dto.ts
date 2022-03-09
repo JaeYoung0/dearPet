@@ -6,3 +6,7 @@ export type CreatePostDto = {
   content: string
   photoURL: string[]
 }
+
+export type DeletePostDto = {
+  postId: string
+}

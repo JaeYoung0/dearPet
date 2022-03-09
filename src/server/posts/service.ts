@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore'
-import { CreatePostDto } from './dto'
+import { CreatePostDto, DeletePostDto } from './dto'
 import { PostModel } from './model'
 
 const postsCollection = firestore().collection<PostModel | Omit<PostModel, 'id'>>('Posts')
@@ -28,4 +28,10 @@ export function createPost(payload: CreatePostDto) {
     createdAt: firestore.FieldValue.serverTimestamp(),
     photoURL,
   })
+}
+
+export async function deletePost(payload: DeletePostDto) {
+  const { postId } = payload
+  const result = await postsCollection.doc(postId).delete()
+  return result
 }
