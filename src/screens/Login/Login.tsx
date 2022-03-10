@@ -4,6 +4,14 @@ import { Pressable, Text, View } from 'react-native'
 import useAuth from './useAuth'
 import * as S from './Login.style'
 import MyIcons from '@/components/MyIcons'
+import {
+  KakaoOAuthToken,
+  KakaoProfile,
+  getProfile as getKakaoProfile,
+  login,
+  logout,
+  unlink,
+} from '@react-native-seoul/kakao-login'
 
 function Login() {
   const [mainLogin, setMainLogin] = useState(true)
@@ -55,6 +63,34 @@ type LoginButtonProps = {
 function LoginButton({ type, toggle }: LoginButtonProps) {
   const { socialLogin } = useAuth()
 
+  const [result, setResult] = useState<string>('')
+
+  console.log('@@result', result)
+
+  const signInWithKakao = async (): Promise<void> => {
+    const token: KakaoOAuthToken = await login()
+
+    setResult(JSON.stringify(token))
+  }
+
+  const signOutWithKakao = async (): Promise<void> => {
+    const message = await logout()
+
+    setResult(message)
+  }
+
+  const getProfile = async (): Promise<void> => {
+    const res = await getKakaoProfile()
+
+    setResult(JSON.stringify(res))
+  }
+
+  const unlinkKakao = async (): Promise<void> => {
+    const message = await unlink()
+
+    setResult(message)
+  }
+
   const text = {
     kakao: '카카오로 시작하기',
     naver: '네이버로 시작하기',
@@ -70,6 +106,8 @@ function LoginButton({ type, toggle }: LoginButtonProps) {
         onPress={() => {
           if (type === 'etc') {
             toggle?.()
+          } else if (type === 'kakao') {
+            getProfile()
           } else {
             socialLogin[type]()
           }
