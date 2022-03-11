@@ -21,6 +21,7 @@ const Hamburger = React.lazy<ComponentType<BasicProps>>(() => import(`./Hamburge
 const SquarePlus = React.lazy<ComponentType<BasicProps>>(() => import(`./SquarePlus`))
 const Check = React.lazy<ComponentType<BasicProps>>(() => import(`./Check`))
 const Arrow = React.lazy<ComponentType<BasicProps>>(() => import(`./Arrow`))
+const Comet = React.lazy<ComponentType<BasicProps>>(() => import(`./Comet`))
 
 export const RegisteredIcons = {
   Universe,
@@ -31,4 +32,5 @@ export const RegisteredIcons = {
   SquarePlus,
   Check,
   Arrow,
+  Comet,
 }
