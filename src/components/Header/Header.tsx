@@ -12,7 +12,7 @@ type Props = {
 function Header({ title, Icons, back }: Props) {
   const navigation = useCustomNavi()
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {back && (
           <Pressable
