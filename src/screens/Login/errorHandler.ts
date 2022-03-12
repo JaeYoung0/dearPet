@@ -9,7 +9,7 @@ function isSignInError(error: unknown): error is SignInError {
   return !!(error as SignInError).code
 }
 
-export function handleSignInError(error: unknown) {
+export function handleGoogleLoginError(error: unknown) {
   if (isSignInError(error)) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       // user cancelled the login flow
