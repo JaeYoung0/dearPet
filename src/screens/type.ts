@@ -6,6 +6,7 @@ export type ScreenParams = {
   WritePost: {}
   MyPet: {}
   PostCard: { postId: string }
+  SignUp: {}
 }
 
 export type RouteProps = {
