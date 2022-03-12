@@ -5,27 +5,23 @@ import Welcome from '@/screens/Welcome'
 import Login from '@/screens/Login'
 import { useRecoilValue } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
-import { getStorage } from '@/modules/storage/helper'
-import useCustomNavi from '@/hooks/useCustomNavi'
+import LoadingIndicator from '@/components/LoadingIndicator'
+import useSawWelcome from './useSawWelcome'
 
 const EntryStack = createStackNavigator()
 
 function Entry() {
   const me = useRecoilValue(userStatus)
-  const navigation = useCustomNavi()
 
-  getStorage('@saw/welcome').then((data) => {
-    if (!data) {
-      navigation.navigate('Welcome', {})
-    }
-  })
+  const { sawWelcome } = useSawWelcome()
+  if (sawWelcome === null) return <LoadingIndicator />
 
   return (
     <EntryStack.Navigator screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
       {/* Protected routes */}
       {!me && (
         <>
-          <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
+          {!sawWelcome && <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />}
           <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         </>
       )}
