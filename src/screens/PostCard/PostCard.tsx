@@ -60,22 +60,21 @@ function PostCard() {
 
   return (
     <S.ScreenContainer>
-      <View style={{ marginBottom: 10 }}>
-        <Header
-          back
-          title='편지보기'
-          Icons={[
-            <Pressable
-              style={{ width: '100%' }}
-              onPress={() => {
-                openModal()
-              }}
-            >
-              <MyIcons name='Hamburger' />
-            </Pressable>,
-          ]}
-        />
-      </View>
+      <Header
+        back
+        title='편지보기'
+        Icons={[
+          <Pressable
+            style={{ width: '100%' }}
+            onPress={() => {
+              openModal()
+            }}
+          >
+            <MyIcons name='Hamburger' />
+          </Pressable>,
+        ]}
+      />
+
       <View style={{ flex: 1 }}>
         <Text>{post?.title}</Text>
         <Text>{post?.content}</Text>
