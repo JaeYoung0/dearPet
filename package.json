@@ -12,6 +12,8 @@
   "dependencies": {
     "@emotion/native": "^11.0.0",
     "@emotion/react": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
+    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^8.1.0",
@@ -24,10 +26,13 @@
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
+    "axios": "^0.26.1",
     "dayjs": "^1.10.8",
     "react": "17.0.2",
+    "react-hook-form": "^7.27.1",
     "react-native": "0.67.2",
     "react-native-dotenv": "^3.3.1",
+    "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-get-random-values": "^1.7.2",
     "react-native-image-picker": "^4.7.3",
@@ -42,7 +47,8 @@
     "react-native-webview": "^11.17.2",
     "react-query": "^3.34.16",
     "recoil": "^0.6.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
