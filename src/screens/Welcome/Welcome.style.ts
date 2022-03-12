@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import styled from '@emotion/native'
 import SofiaText from '@/components/SofiaText'
+import FastImage from 'react-native-fast-image'
 
 export const Title = styled(SofiaText)({
   color: '#0B0543',
@@ -22,10 +23,9 @@ export const Text = styled(SofiaText)({
   zIndex: 1,
 })
 
-export const BackgroundImg = styled.Image({
+export const BackgroundImg = styled(FastImage)({
   width: '100%',
   height: '100%',
-  resizeMode: 'cover',
 })
 
 export const ButtonText = styled(SofiaText)({

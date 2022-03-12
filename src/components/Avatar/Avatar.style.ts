@@ -1,9 +1,8 @@
 import styled, { css } from '@emotion/native'
+import FastImage from 'react-native-fast-image'
 
-export const Img = styled.Image`
-  width: 150px;
-  height: 150px;
-
-  /* border-radius: 50%; // error */
-  border-radius: 150px;
-`
+export const Img = styled(FastImage)({
+  width: 150,
+  height: 150,
+  borderRadius: 150,
+})

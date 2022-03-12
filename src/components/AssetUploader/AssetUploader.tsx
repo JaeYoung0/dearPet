@@ -4,6 +4,7 @@ import { Image, Pressable, Platform } from 'react-native'
 import MyIcons from '../MyIcons'
 import { useRecoilState } from 'recoil'
 import { assetStatus } from '@/modules/uploader/atom'
+import FastImage from 'react-native-fast-image'
 
 function AssetUploader() {
   //   console.log('@@---------------assets', assets)
@@ -35,7 +36,7 @@ function AssetUploader() {
   return (
     <>
       {assets.map((asset) => (
-        <Image source={{ uri: asset.uri, width: 150, height: 150 }} />
+        <FastImage style={{ width: 150, height: 150 }} source={{ uri: asset.uri }} />
       ))}
     </>
   )

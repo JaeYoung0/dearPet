@@ -1,4 +1,5 @@
 import styled, { css } from '@emotion/native'
+import FastImage from 'react-native-fast-image'
 
 export const Container = styled.View`
   flex-direction: row;
@@ -12,7 +13,7 @@ export const Container = styled.View`
 
 export const LeftColumn = styled.View``
 
-export const Image = styled.Image({
+export const Image = styled(FastImage)({
   width: 150,
   height: 150,
 })
