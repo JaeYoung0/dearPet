@@ -4,27 +4,26 @@ import { Pressable, Text, View } from 'react-native'
 import useAuth from './useAuth'
 import * as S from './Login.style'
 import MyIcons from '@/components/MyIcons'
-import {
-  KakaoOAuthToken,
-  KakaoProfile,
-  getProfile as getKakaoProfile,
-  login,
-  logout,
-  unlink,
-} from '@react-native-seoul/kakao-login'
+import EmailLogin from './components/EmailLogin'
 
-function Login() {
+function LoginScreen() {
   const [mainLogin, setMainLogin] = useState(true)
   const toggle = () => setMainLogin(!mainLogin)
   const { me } = useAuth()
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <S.BackVideo source={require('@assets/videos/login_bg.mp4')} repeat resizeMode='cover' />
+      <S.BackVideo source={require('@assets/videos/login_bg2.mp4')} repeat resizeMode='cover' />
       <S.Backdrop />
 
-      {!me && !mainLogin && (
+      {/* {!me && !mainLogin && (
         <Pressable style={{ position: 'absolute', top: 30, left: 30 }} onPress={toggle}>
+          <MyIcons name='Arrow' />
+        </Pressable>
+      )} */}
+
+      {!me && !mainLogin && (
+        <Pressable style={{ position: 'absolute', top: 25, left: 25 }} onPress={toggle}>
           <MyIcons name='Arrow' />
         </Pressable>
       )}
@@ -39,13 +38,12 @@ function Login() {
       {!me && !mainLogin && (
         <View style={{ flex: 1, padding: 55, justifyContent: 'center' }}>
           <View>
-            <PhoneNumberLogin />
+            <EmailLogin />
           </View>
 
           <S.Divider />
 
           <View>
-            <LoginButton type='naver' />
             <LoginButton type='google' />
             <LoginButton type='apple' />
           </View>
@@ -63,34 +61,6 @@ type LoginButtonProps = {
 function LoginButton({ type, toggle }: LoginButtonProps) {
   const { socialLogin } = useAuth()
 
-  const [result, setResult] = useState<string>('')
-
-  console.log('@@result', result)
-
-  const signInWithKakao = async (): Promise<void> => {
-    const token: KakaoOAuthToken = await login()
-
-    setResult(JSON.stringify(token))
-  }
-
-  const signOutWithKakao = async (): Promise<void> => {
-    const message = await logout()
-
-    setResult(message)
-  }
-
-  const getProfile = async (): Promise<void> => {
-    const res = await getKakaoProfile()
-
-    setResult(JSON.stringify(res))
-  }
-
-  const unlinkKakao = async (): Promise<void> => {
-    const message = await unlink()
-
-    setResult(message)
-  }
-
   const text = {
     kakao: '카카오로 시작하기',
     naver: '네이버로 시작하기',
@@ -100,14 +70,13 @@ function LoginButton({ type, toggle }: LoginButtonProps) {
   }
 
   return (
-    <View style={{ alignItems: 'center', marginBottom: 15 }}>
+    <View style={{ alignItems: 'center', marginBottom: 20 }}>
       <S.LoginTouchable
+        activeOpacity={0.7}
         style={{ backgroundColor: type === 'kakao' ? '#F4DC34' : '#FFF' }}
         onPress={() => {
           if (type === 'etc') {
             toggle?.()
-          } else if (type === 'kakao') {
-            getProfile()
           } else {
             socialLogin[type]()
           }
@@ -117,44 +86,10 @@ function LoginButton({ type, toggle }: LoginButtonProps) {
         {type === 'naver' && <S.Logo source={require('@assets/images/naver.png')} />}
         {type === 'google' && <S.Logo source={require('@assets/images/google.png')} />}
         {type === 'apple' && <S.Logo source={require('@assets/images/apple.png')} />}
-
         <S.LogoText>{text[type]}</S.LogoText>
       </S.LoginTouchable>
     </View>
   )
 }
 
-function PhoneNumberLogin() {
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [password, setPassword] = useState('')
-  return (
-    <>
-      <S.PhoneLoginLabel>휴대폰 번호</S.PhoneLoginLabel>
-      <S.PhoneLoginInput
-        placeholderTextColor='#B9B9B9'
-        placeholder='휴대폰 번호를 입력해주세요.'
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-      />
-
-      <S.PhoneLoginLabel>비밀번호</S.PhoneLoginLabel>
-      <S.PhoneLoginInput
-        placeholderTextColor='#B9B9B9'
-        placeholder='비밀번호를 입력해주세요.'
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <S.PhoneLoginTouchable>
-        <Text>로그인</Text>
-      </S.PhoneLoginTouchable>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text>비밀번호를 잊으셨나요?</Text>
-        <Text>회원가입</Text>
-      </View>
-    </>
-  )
-}
-
-export default Login
+export default LoginScreen

@@ -29,7 +29,7 @@ export default function Input({ label, name, rules, defaultValue, placeholderTex
       {label && <S.Label>{label}</S.Label>}
       <S.Input
         {...props}
-        // placeholderTextColor={placeholderTextColor}
+        placeholderTextColor={placeholderTextColor}
         onChangeText={field.onChange}
         onBlur={field.onBlur}
         value={field.value}

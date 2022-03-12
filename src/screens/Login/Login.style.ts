@@ -1,7 +1,5 @@
 import styled, { css } from '@emotion/native'
-
-// https://stackoverflow.com/questions/69183045/difference-between-textinput-from-react-native-and-react-native-gesture-handl
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+import { useState } from 'react'
 import Video from 'react-native-video'
 
 export const BackVideo = styled(Video)({
@@ -22,7 +20,7 @@ export const Backdrop = styled.View({
   right: 0,
   width: '100%',
   backgroundColor: '#000000',
-  opacity: 0.5,
+  opacity: 0.7,
   alignItems: 'center',
   justifyContent: 'center',
 })
@@ -44,34 +42,10 @@ export const LoginTouchable = styled.TouchableOpacity({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
-  height: 35,
+  height: 40,
   borderRadius: 5,
 })
 
 export const LogoText = styled.Text({
   color: '#000000',
-})
-
-export const PhoneLoginInput = styled(TextInput)({
-  backgroundColor: '#fff',
-  borderRadius: 5,
-  height: 40,
-  marginBottom: 20,
-  fontSize: 12,
-  padding: 10,
-})
-
-export const PhoneLoginLabel = styled.Text({
-  fontSize: 15,
-  color: '#fff',
-  marginBottom: 10,
-})
-
-export const PhoneLoginTouchable = styled(TouchableOpacity)({
-  backgroundColor: '#7E71F3',
-  borderRadius: 5,
-  height: 40,
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginBottom: 10,
 })

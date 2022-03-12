@@ -5,7 +5,7 @@ type SignInError = {
   code: any
 }
 
-function isSignInError(error: unknown): error is SignInError {
+export function isSignInError(error: unknown): error is SignInError {
   return !!(error as SignInError).code
 }
 
@@ -22,6 +22,16 @@ export function handleGoogleLoginError(error: unknown) {
       // play services not available or outdated
     } else {
       Alert.alert(JSON.stringify(error))
+    }
+  }
+}
+
+export function handleEmailLoginError(error: unknown) {
+  if (isSignInError(error)) {
+    if (error.code === 'auth/wrong-password') {
+      Alert.alert('비밀번호를 확인해주세요.')
+    } else {
+      Alert.alert(error.code)
     }
   }
 }
