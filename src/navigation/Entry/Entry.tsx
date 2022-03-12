@@ -25,8 +25,8 @@ function Entry() {
       {/* Protected routes */}
       {!me && (
         <>
-          <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
           <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
+          <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         </>
       )}
       {me && <EntryStack.Screen name='Main' component={Main} options={{ headerShown: false }} />}
