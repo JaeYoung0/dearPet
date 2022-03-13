@@ -13,7 +13,7 @@ function LoginScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <S.BackVideo source={require('@assets/videos/login_bg2.mp4')} repeat resizeMode='cover' />
+      <S.BackVideo source={require('@assets/videos/login_bg_new.mp4')} repeat resizeMode='cover' rate={0.3} />
       <S.Backdrop />
 
       {/* {!me && !mainLogin && (
@@ -29,7 +29,7 @@ function LoginScreen() {
       )}
 
       {!me && mainLogin && (
-        <View style={{ flex: 1, padding: 55, justifyContent: 'flex-end' }}>
+        <View style={{ flex: 1, padding: 55, justifyContent: 'flex-end', paddingBottom: 100 }}>
           <LoginButton type='kakao' />
           <LoginButton type='etc' toggle={toggle} />
         </View>

@@ -20,7 +20,7 @@ export const Backdrop = styled.View({
   right: 0,
   width: '100%',
   backgroundColor: '#000000',
-  opacity: 0.7,
+  opacity: 0.5,
   alignItems: 'center',
   justifyContent: 'center',
 })
