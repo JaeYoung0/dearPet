@@ -3,6 +3,7 @@ import React from 'react'
 import Main from '@/navigation/Main'
 import Welcome from '@/screens/Welcome'
 import Login from '@/screens/Login'
+import SignUp from '@/screens/SignUp'
 import { useRecoilValue } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
 import LoadingIndicator from '@/components/LoadingIndicator'
@@ -23,6 +24,7 @@ function Entry() {
         <>
           {!sawWelcome && <EntryStack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />}
           <EntryStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+          <EntryStack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
         </>
       )}
       {me && <EntryStack.Screen name='Main' component={Main} options={{ headerShown: false }} />}
