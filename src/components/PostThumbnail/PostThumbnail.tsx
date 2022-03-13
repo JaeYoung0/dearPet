@@ -8,7 +8,7 @@ type Props = {
   order: number
 }
 function PostThumbnail({ post, order }: Props) {
-  console.log(post)
+  console.log('@@post', post)
   return (
     <S.Container>
       <S.LeftColumn>

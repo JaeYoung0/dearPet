@@ -65,7 +65,7 @@ const useAuth = () => {
 
       const googleCredential = auth.GoogleAuthProvider.credential(idToken)
       const UserCredential = await auth().signInWithCredential(googleCredential)
-      console.log('@@UserCredential', UserCredential)
+      console.log('@@google user credential', UserCredential)
 
       const googleAuthUser = UserCredential.user
 

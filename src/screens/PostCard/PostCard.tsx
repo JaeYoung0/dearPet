@@ -3,19 +3,10 @@ import MyIcons from '@/components/MyIcons'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import usePosts from '@/modules/posts/usePosts'
 import { useRoute, NavigatorScreenParams } from '@react-navigation/native'
+import FastImage from 'react-native-fast-image'
+
 import React, { useRef } from 'react'
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-  Animated,
-  StyleSheet,
-  TouchableOpacity,
-  TextBase,
-  Dimensions,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Pressable, Text, View, Animated, StyleSheet, TouchableOpacity, TextBase, Dimensions } from 'react-native'
 
 import { RouteProps, ScreenParams } from '@/screens/type'
 import * as S from './PostCard.style'
@@ -78,7 +69,7 @@ function PostCard() {
       <View style={{ flex: 1 }}>
         <Text>{post?.title}</Text>
         <Text>{post?.content}</Text>
-        <Image style={{ width: 150, height: 150 }} source={{ uri: post?.photoURL[0] }} />
+        <FastImage style={{ width: 150, height: 150 }} source={{ uri: post?.photoURL[0] }} />
       </View>
 
       {/* FIXME: BottomModal로 뽑아내기, Bottom navigation 덮어버리게 수정하기 */}

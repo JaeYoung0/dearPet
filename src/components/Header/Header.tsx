@@ -3,20 +3,22 @@ import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MyIcons from '../MyIcons'
+import SofiaText from '@/components/SofiaText'
 
 type Props = {
   title?: string
   back?: boolean
   Icons?: JSX.Element[]
 }
+
 function Header({ title, Icons, back }: Props) {
   const navigation = useCustomNavi()
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row' }}>
         {back && (
           <Pressable
-            style={{ marginRight: 20, width: 15, height: 15 }}
+            style={{ marginRight: 20 }}
             onPress={() => {
               navigation.goBack()
             }}
@@ -25,7 +27,7 @@ function Header({ title, Icons, back }: Props) {
           </Pressable>
         )}
 
-        {title && <Text style={{ fontSize: 18 }}>{title}</Text>}
+        {title && <SofiaText style={{ fontSize: 18, lineHeight: 20 }}>{title}</SofiaText>}
       </View>
 
       <View style={{ flexDirection: 'row' }}>

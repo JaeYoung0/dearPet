@@ -13,6 +13,7 @@ import AssetUploader from '@/components/AssetUploader'
 import { useRecoilState } from 'recoil'
 import { assetStatus } from '@/modules/uploader/atom'
 import useUploadImages from '@/hooks/useUploadImages'
+import SofiaText from '@/components/SofiaText'
 
 function WritePost() {
   const [title, setTitle] = useState('')
@@ -54,12 +55,12 @@ function WritePost() {
           title='편지쓰기'
           Icons={[
             <Pressable onPress={handleSubmit}>
-              <MyIcons name='Check' />
+              <MyIcons name='Comet' />
             </Pressable>,
           ]}
         />
       </View>
-      <Text style={{ fontSize: 12, color: '#7E71F3', marginBottom: 30 }}>로아에게 보내는 첫번째 편지</Text>
+      <SofiaText style={{ fontSize: 12, color: '#7E71F3', marginBottom: 30 }}>로아에게 보내는 첫번째 편지</SofiaText>
       <TextInput
         placeholder='제목을 입력해주세요.'
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', marginBottom: 20 }}

@@ -1,12 +1,5 @@
-export type CreateUserDto = {
-  licenseId: string
-  displayName: string
-  email: string
-  phoneNumber: string
-  photoURL: string
-}
+import { UserModel } from './model'
 
-export type UpdateUserPhotoUrlDto = {
-  licenseId: string
-  photoURL: string
-}
+export type CreateUserDto = UserModel & {}
+
+export type UpdateUserPhotoUrlDto = Pick<UserModel, 'licenseId' | 'photoURL'>
