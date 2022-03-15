@@ -42,13 +42,14 @@ export default function EmailLogin() {
     <>
       <S.Container>
         <FormProvider {...methods}>
-          <Input name='email' label='Email' placeholder='이메일을 입력해주세요.' keyboardType='email-address' />
+          <Input name='email' label='이메일' placeholder='이메일을 입력해주세요.' keyboardType='email-address' />
+          <View style={{ marginBottom: 20 }} />
           <Input name='password' label='비밀번호' placeholder='비밀번호를 입력해주세요.' secureTextEntry />
         </FormProvider>
       </S.Container>
 
       <S.LoginTouchable onPress={methods.handleSubmit(onSubmit, onError)}>
-        <S.LoginText>로그인</S.LoginText>
+        <S.LoginText weight={500}>로그인</S.LoginText>
       </S.LoginTouchable>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

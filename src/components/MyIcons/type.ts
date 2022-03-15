@@ -6,5 +6,8 @@ export type MyIconsProps = {
   name: IconKey
   focused?: boolean
   color?: string
+  stretch?: boolean
+  width?: number
+  height?: number
 }
 export type BasicProps = Omit<MyIconsProps, 'name'>

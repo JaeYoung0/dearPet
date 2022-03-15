@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import styled, { css } from '@emotion/native'
-import SofiaText from '@/components/SofiaText'
+import CustomText from '@/components/CustomText'
 
 export const Container = styled.View({
   marginBottom: 30,
@@ -21,7 +21,7 @@ export const SumbmitTouchable = styled(TouchableOpacity)({
   alignItems: 'center',
 })
 
-export const SubmitText = styled(SofiaText)({
+export const SubmitText = styled(CustomText)({
   fontSize: 15,
   color: '#fff',
 })

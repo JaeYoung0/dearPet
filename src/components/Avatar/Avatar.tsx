@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, ActivityIndicator } from 'react-native'
+import { Pressable, ActivityIndicator, View } from 'react-native'
 import * as S from './Avatar.style'
 import useAvatar from './useAvatar'
 import { userStatus } from '@/modules/user/atoms'
@@ -14,7 +14,15 @@ function Avatar() {
 
   return (
     <Pressable onPress={onSelectImage}>
-      {isUploading ? <ActivityIndicator style={{ top: 75 }} /> : <S.Img source={{ uri: me.photoURL }} />}
+      {isUploading ? (
+        <ActivityIndicator style={{ top: 75 }} />
+      ) : (
+        <View>
+          <S.Frame source={require('@assets/images/frame.png')}>
+            <S.Img source={{ uri: me.photoURL }} />
+          </S.Frame>
+        </View>
+      )}
     </Pressable>
   )
 }

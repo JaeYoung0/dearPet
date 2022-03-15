@@ -8,7 +8,6 @@ type Props = {
   order: number
 }
 function PostThumbnail({ post, order }: Props) {
-  console.log('@@post', post)
   return (
     <S.Container>
       <S.LeftColumn>
@@ -17,7 +16,7 @@ function PostThumbnail({ post, order }: Props) {
       <S.RightColumn>
         <S.Label>{order + 1}번째 편지</S.Label>
         <S.Title>{post.title}</S.Title>
-        <S.BodyText numberOfLines={3}>{post.content}</S.BodyText>
+        <S.BodyText numberOfLines={2}>{post.content}</S.BodyText>
         <S.Date>{dayjs((post?.createdAt.seconds ?? 0) * 1000).format('YYYY.MM.DD')}</S.Date>
       </S.RightColumn>
     </S.Container>
