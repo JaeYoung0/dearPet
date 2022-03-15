@@ -1,9 +1,8 @@
-import { Label } from '@/components/PostThumbnail/PostThumbnail.style'
-import React, { useState } from 'react'
-import { View, Text, TextInputProps } from 'react-native'
+import React from 'react'
+import { TextInputProps } from 'react-native'
 import * as S from './Input.style'
 
-import { useController, useFormContext, ControllerProps, UseControllerProps } from 'react-hook-form'
+import { useController, useFormContext, UseControllerProps } from 'react-hook-form'
 
 type Props = {
   label?: string
@@ -25,7 +24,7 @@ export default function Input({ label, name, rules, defaultValue, placeholderTex
   const errorMsg = formState.errors[name]?.message
 
   return (
-    <S.Wrapper>
+    <>
       {label && <S.Label>{label}</S.Label>}
       <S.Input
         {...props}
@@ -36,6 +35,6 @@ export default function Input({ label, name, rules, defaultValue, placeholderTex
       />
 
       {errorMsg && <S.ErrorText>{errorMsg}</S.ErrorText>}
-    </S.Wrapper>
+    </>
   )
 }

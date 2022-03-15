@@ -1,14 +1,10 @@
-import SofiaText from '@/components/SofiaText'
+import CustomText from '@/components/CustomText'
 import styled, { css } from '@emotion/native'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 
-export const Wrapper = styled.View`
-  & ~ & {
-    margin-top: 10px;
-  }
-`
+export const Wrapper = styled.View``
 
-export const Label = styled(SofiaText)({
+export const Label = styled(CustomText)({
   fontSize: 15,
   color: '#fff',
   marginBottom: 10,
@@ -23,6 +19,6 @@ export const Input = styled(TextInput)({
   color: '#222222',
 })
 
-export const ErrorText = styled(SofiaText)({
+export const ErrorText = styled(CustomText)({
   fontSize: 12,
 })
