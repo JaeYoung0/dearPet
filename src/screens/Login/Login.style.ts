@@ -31,21 +31,3 @@ export const Divider = styled.View({
   borderBottomWidth: 1,
   borderColor: '#dcdcdc',
 })
-
-export const Logo = styled.Image({
-  width: 35,
-  height: 35,
-})
-
-export const LoginTouchable = styled.TouchableOpacity({
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  height: 40,
-  borderRadius: 5,
-})
-
-export const LogoText = styled.Text({
-  color: '#000000',
-})
