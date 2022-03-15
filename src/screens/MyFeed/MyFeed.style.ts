@@ -1,23 +1,26 @@
+import CustomText from '@/components/CustomText'
+import { horizontalScale, verticalScale } from '@/utils/adjustSize'
 import styled, { css } from '@emotion/native'
+import FastImage from 'react-native-fast-image'
 
-export const DisplayName = styled.Text`
-  font-weight: 600;
-  font-size: 20px;
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 10px;
-`
+export const BgImg = styled(FastImage)({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+})
 
-export const IntroductionText = styled.Text`
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+export const DisplayName = styled(CustomText)({
+  textAlign: 'center',
+  marginBottom: verticalScale(10),
+  fontSize: horizontalScale(18),
+  color: '#fff',
+})
 
-  text-align: center;
-
-  color: #ffffff;
-`
-
-export const ScrollView = styled.ScrollView`
-  flex: 1;
-`
+export const IntroductionText = styled(CustomText)({
+  fontSize: horizontalScale(12),
+  lineHeight: 18,
+  textAlign: 'center',
+  color: '#fff',
+})
