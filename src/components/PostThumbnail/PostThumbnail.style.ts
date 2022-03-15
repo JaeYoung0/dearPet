@@ -1,38 +1,39 @@
 import styled, { css } from '@emotion/native'
 import FastImage from 'react-native-fast-image'
+import CustomText from '../CustomText'
 
-export const Container = styled.View`
-  flex-direction: row;
+export const Container = styled.View({
+  flex: 1,
+  flexDirection: 'row',
+  marginBottom: 20,
+})
 
-  width: 100%;
-  height: 150px;
-  margin-bottom: 20px;
-
-  background-color: transparent;
-`
-
-export const LeftColumn = styled.View``
+export const LeftColumn = styled.View({
+  // flex: 1,
+})
 
 export const Image = styled(FastImage)({
   width: 150,
   height: 150,
+  borderRadius: 5,
 })
 
-export const RightColumn = styled.View`
-  padding: 20px;
-  flex: 1;
-`
+export const RightColumn = styled.View({
+  flex: 1,
+  padding: 10,
+  paddingLeft: 15,
+})
 
-export const Label = styled.Text`
-  color: #a19aea;
-  font-size: 10px;
-  margin-bottom: 5px;
-`
+export const Label = styled(CustomText)({
+  color: '#a19aea',
+  fontSize: 10,
+  marginBottom: 5,
+})
 
-export const Title = styled.Text`
-  font-size: 16px;
-  margin-bottom: 5px;
-`
+export const Title = styled(CustomText)({
+  fontSize: 16,
+  marginBottom: 5,
+})
 
 export const BodyText = styled.Text({
   fontSize: 12,
@@ -40,7 +41,7 @@ export const BodyText = styled.Text({
   flex: 1,
 })
 
-export const Date = styled.Text({
+export const Date = styled(CustomText)({
   color: '#4E4E4E',
   fontSize: 10,
 })

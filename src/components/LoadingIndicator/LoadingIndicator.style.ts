@@ -1,4 +1,4 @@
-import SofiaText from '@/components/SofiaText'
+import CustomText from '@/components/CustomText'
 import { COLORS } from '@/constants/palette'
 import styled, { css } from '@emotion/native'
 import FastImage from 'react-native-fast-image'
@@ -27,7 +27,7 @@ export const Petwings = styled(FastImage)({
   height: 200,
 })
 
-export const Text = styled(SofiaText)({
+export const Text = styled(CustomText)({
   color: COLORS.PURPLE01,
   fontSize: 30,
 })
