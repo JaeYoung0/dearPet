@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { GOOGLE_CLIENT_ID } from '@env'
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { useMeState } from '@/modules/user/atoms'
 import { UserModel } from '@/server/users/model'
 import * as UserService from '@/server/users/service'
-import { handleGoogleLoginError } from './errorHandler'
+import { handleGoogleLoginError } from '../errorHandler'
 import {
   KakaoOAuthToken,
   KakaoProfile,
@@ -16,6 +16,7 @@ import {
 } from '@react-native-seoul/kakao-login'
 import axios from 'axios'
 import useAppleLogin from './useAppleLogin'
+import { sleep } from '@/utils/sleep'
 
 const customToken = async (snsId: string) => {
   const { data } = await axios.get<{ customToken: string }>(
@@ -26,8 +27,7 @@ const customToken = async (snsId: string) => {
 
 const useAuth = () => {
   const { me, setMe } = useMeState()
-
-  const { appleLogin } = useAppleLogin()
+  const [isLoading, setIsLoading] = useState(false)
 
   async function findOrCreateUser(payload: Pick<FirebaseAuthTypes.User, 'uid' | 'displayName' | 'email' | 'photoURL'>) {
     const { uid, displayName, photoURL, email } = payload
@@ -61,6 +61,7 @@ const useAuth = () => {
 
   const googleLogin = useCallback(async () => {
     try {
+      setIsLoading(true)
       const { idToken } = await GoogleSignin.signIn()
 
       const googleCredential = auth.GoogleAuthProvider.credential(idToken)
@@ -78,35 +79,35 @@ const useAuth = () => {
       })
     } catch (error) {
       handleGoogleLoginError(error)
+    } finally {
+      setIsLoading(false)
     }
   }, [])
 
   const kakaoLogin = useCallback(async () => {
-    await kakaoOAuthLogin()
-    const kakaoProfile = (await getKakaoProfile()) as KakaoProfile
-    const { profileImageUrl, email, nickname, id: kakaoId } = kakaoProfile
+    setIsLoading(true)
 
-    const token = await customToken(`kakao:${kakaoId}`)
-    const credential = await auth().signInWithCustomToken(token)
-
-    const uid = credential.user.uid
-
-    findOrCreateUser({
-      uid,
-      displayName: nickname,
-      email,
-      photoURL: profileImageUrl,
-    })
+    try {
+      await kakaoOAuthLogin()
+      const kakaoProfile = (await getKakaoProfile()) as KakaoProfile
+      const { profileImageUrl, email, nickname, id: kakaoId } = kakaoProfile
+      const token = await customToken(`kakao:${kakaoId}`)
+      const credential = await auth().signInWithCustomToken(token)
+      const uid = credential.user.uid
+      findOrCreateUser({
+        uid,
+        displayName: nickname,
+        email,
+        photoURL: profileImageUrl,
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
-  const socialLogin = {
-    google: googleLogin,
-    kakao: kakaoLogin,
-    naver: () => {},
-    apple: () => {},
-  } as const
-
-  return { me, socialLogin }
+  return { me, isLoading, kakaoLogin, googleLogin }
 }
 
 export default useAuth
