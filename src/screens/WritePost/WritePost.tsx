@@ -1,95 +1,190 @@
 import Header from '@/components/Header'
 import MyIcons from '@/components/MyIcons'
 import { createPost } from '@/server/posts/service'
-import React, { useState } from 'react'
-import { Alert, Pressable, Text, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState, useCallback } from 'react'
+import { Pressable, View, Keyboard } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 import { userStatus } from '@/modules/user/atoms'
 import { useRecoilValue } from 'recoil'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import usePosts from '@/modules/posts/usePosts'
 import AssetUploader from '@/components/AssetUploader'
-import { useRecoilState } from 'recoil'
-import { assetStatus } from '@/modules/uploader/atom'
+import { useUploaderState } from '@/modules/uploader/atom'
 import useUploadImages from '@/hooks/useUploadImages'
-import SofiaText from '@/components/SofiaText'
+import CustomText from '@/components/CustomText'
+import Layout from '@/components/Layout'
+import FastImage from 'react-native-fast-image'
+import * as S from './WritePost.style'
+import { useForm, FormProvider, SubmitHandler, SubmitErrorHandler, UseFormHandleSubmit } from 'react-hook-form'
+import useAnimation from '@/hooks/useAnimation'
+import LoadingIndicator from '@/components/LoadingIndicator'
+
+type FormValues = {
+  title: string
+  content: string
+}
 
 function WritePost() {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [assets, setAssets] = useRecoilState(assetStatus)
+  const { setUploaderState } = useUploaderState()
   const { uploadImages } = useUploadImages({
     path: '/images/post',
   })
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const me = useRecoilValue(userStatus)
   const navigation = useCustomNavi()
   const { refetch } = usePosts()
   if (!me) return null
 
-  const handleSubmit = async () => {
-    if (!title || !content) {
-      return Alert.alert('빈칸을 채워주세요.')
-    }
+  const { ...methods } = useForm<FormValues>()
 
+  const backSideTitle = methods.getValues('title')
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setIsLoading(true)
     try {
       const photoURL = await uploadImages()
-      console.log('@@@@@@@@@@@@@@@photoURL', photoURL)
+
+      const { title, content } = data
 
       if (!photoURL) return
       await createPost({ user: me, title, content, photoURL })
-      setAssets(null)
+      setUploaderState(null)
       await refetch()
       navigation.goBack()
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
-    // FIXME: content의 whitespace도 반영하고 싶다면 ?...
   }
+
+  const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
+    console.log(errors)
+  }
+
+  const { goValueOf, animation } = useAnimation()
+  const [rotation, setRotation] = useState(0)
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setUploaderState(null)
+    }, [])
+  )
+
+  if (isLoading) return <LoadingIndicator type='full' />
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#222222', padding: 25 }}>
-      <View style={{ marginBottom: 10 }}>
+    <Layout style={{ padding: 15 }}>
+      <View style={{ flex: 1 }}>
         <Header
           back
           title='편지쓰기'
           Icons={[
-            <Pressable onPress={handleSubmit}>
-              <MyIcons name='Comet' />
+            <Pressable
+              style={{
+                width: 44,
+                height: 44,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => {
+                goValueOf({ toValue: rotation + 1, duration: 500 })
+                setRotation(rotation + 1)
+                Keyboard.dismiss()
+              }}
+            >
+              <MyIcons name='Rotation' />
+            </Pressable>,
+
+            <Pressable
+              onPress={methods.handleSubmit(onSubmit, onError)}
+              style={{
+                width: 44,
+                height: 44,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <MyIcons name='Comet' color='#fff' />
             </Pressable>,
           ]}
         />
-      </View>
-      <SofiaText style={{ fontSize: 12, color: '#7E71F3', marginBottom: 30 }}>로아에게 보내는 첫번째 편지</SofiaText>
-      <TextInput
-        placeholder='제목을 입력해주세요.'
-        style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', marginBottom: 20 }}
-        value={title}
-        onChangeText={setTitle}
-        multiline
-        textAlignVertical='top'
-      />
 
-      <TextInput
-        placeholder='내용을 입력해주세요.'
-        style={{ flex: 3, backgroundColor: 'rgba(255, 255, 255, 0.15)', marginBottom: 20 }}
-        value={content}
-        onChangeText={setContent}
-        multiline
-        textAlignVertical='top'
-      />
+        <View style={{ flex: 1 }}>
+          <FormProvider {...methods}>
+            {/* FrontSide */}
+            <S.AnimatedView
+              style={{
+                transform: [
+                  {
+                    rotateY: animation.interpolate({
+                      inputRange: [rotation, rotation + 1],
+                      outputRange: [`${rotation * 180}deg`, `${(rotation + 1) * 180}deg`],
+                    }),
+                  },
+                ],
+                zIndex: rotation % 2 === 0 ? 1 : 0,
+              }}
+            >
+              <S.LetterBg source={require('@assets/images/letter_bg.png')} />
+              <S.LetterBody>
+                <S.MetaWrapper>
+                  <S.MetaText>Dear. 로이</S.MetaText>
+                  <S.MetaText>01</S.MetaText>
+                </S.MetaWrapper>
 
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'rgba(255, 255, 255, 0.15);',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <AssetUploader />
+                <S.FormWrapper style={{ flex: 1 }}>
+                  <S.TitleInput name='title' placeholder='제목을 입력해주세요.' placeholderTextColor='#000000' />
+                  <S.ContentInput
+                    name='content'
+                    multiline
+                    placeholder='내용을 입력해주세요.'
+                    placeholderTextColor='#000000'
+                    textAlignVertical='top'
+                  />
+                </S.FormWrapper>
+              </S.LetterBody>
+            </S.AnimatedView>
+
+            {/* BackSide */}
+            <S.AnimatedView
+              style={{
+                transform: [
+                  {
+                    rotateY: animation.interpolate({
+                      inputRange: [rotation, rotation + 1],
+                      outputRange: [`${(rotation + 1) * 180}deg`, `${(rotation + 2) * 180}deg`],
+                    }),
+                  },
+                ],
+              }}
+            >
+              <S.LetterBg source={require('@assets/images/letter_bg.png')} />
+              <S.LetterBody style={{ padding: 25, paddingTop: 30 }}>
+                <View
+                  style={{ flex: 5, borderColor: '#999999', borderWidth: 2, borderStyle: 'dashed', marginBottom: 10 }}
+                >
+                  <AssetUploader />
+                </View>
+
+                <View style={{ flex: 2 }}>
+                  <S.MetaWrapper style={{ padding: 0, marginBottom: 10 }}>
+                    <S.MetaText style={{ fontSize: 12 }}>로이에게 보내는 1번째 편지</S.MetaText>
+                    <S.MetaText style={{ fontSize: 12 }}>2022/03/16</S.MetaText>
+                  </S.MetaWrapper>
+
+                  <S.BackSideTitle>{backSideTitle}</S.BackSideTitle>
+                </View>
+              </S.LetterBody>
+              <View style={{ position: 'absolute', bottom: 10, right: 10, width: 120, height: 100 }}>
+                <MyIcons name='Stamp' stretch />
+              </View>
+            </S.AnimatedView>
+          </FormProvider>
+        </View>
       </View>
-    </SafeAreaView>
+    </Layout>
   )
 }
 
