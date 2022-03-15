@@ -56,7 +56,6 @@ export default function Tabs() {
       {/* TabPanel */}
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {currentTab === 'posts' && <Posts />}
-
         {currentTab === 'comments' && <Comments />}
       </View>
     </>
