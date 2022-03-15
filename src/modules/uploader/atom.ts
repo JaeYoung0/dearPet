@@ -1,8 +1,16 @@
-import { atom } from 'recoil'
+import { atom, useRecoilState } from 'recoil'
 import { Asset } from 'react-native-image-picker'
 
-// storage까지 atom으로 관리할 필요가 딱히...
-export const assetStatus = atom<Asset[] | null>({
+export const uploaderStatus = atom<Asset[] | null>({
   key: 'storage',
   default: null,
 })
+
+export const useUploaderState = () => {
+  const [uploaderState, setUploaderState] = useRecoilState(uploaderStatus)
+
+  return {
+    uploaderState,
+    setUploaderState,
+  }
+}

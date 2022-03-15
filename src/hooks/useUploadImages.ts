@@ -1,4 +1,4 @@
-import { assetStatus } from './../modules/uploader/atom'
+import { useUploaderState } from './../modules/uploader/atom'
 import { useRecoilState } from 'recoil'
 import React, { useState } from 'react'
 import storage, { FirebaseStorageTypes } from '@react-native-firebase/storage'
@@ -27,8 +27,7 @@ const OPTIONS: ImageLibraryOptions = {
  */
 function useUploadImages({ path, fileName, options }: Props) {
   const [isUploading, setIsUploading] = useState(false)
-  const [assets, setAssets] = useRecoilState(assetStatus)
-
+  const { uploaderState } = useUploaderState()
   //   const [photoURL, setPhotoURL] = useState<string[]>([])
 
   const uploadImages = async () => {
@@ -36,10 +35,10 @@ function useUploadImages({ path, fileName, options }: Props) {
     try {
       setIsUploading(true)
 
-      if (!assets) return
+      if (!uploaderState) return
 
       //   FIXME: forEach로하면 photoURL이 비어있는채로 리턴됨.
-      for await (const asset of assets) {
+      for await (const asset of uploaderState) {
         const ext = asset.fileName?.split('.').pop()!
         const reference = fileName
           ? storage().ref(`${path}/${fileName}.${ext}`)
@@ -57,7 +56,7 @@ function useUploadImages({ path, fileName, options }: Props) {
         photoURL.push(url)
       }
 
-      assets.forEach(async (asset, idx) => {
+      uploaderState.forEach(async (asset, idx) => {
         // const ext = asset.fileName?.split('.').pop()!
         // const reference = fileName
         //   ? storage().ref(`${path}/${fileName[idx]}.${ext}`)

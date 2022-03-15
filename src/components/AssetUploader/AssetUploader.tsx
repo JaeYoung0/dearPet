@@ -3,12 +3,11 @@ import { launchImageLibrary, ImageLibraryOptions, ImagePickerResponse, Asset } f
 import { Image, Pressable, Platform } from 'react-native'
 import MyIcons from '../MyIcons'
 import { useRecoilState } from 'recoil'
-import { assetStatus } from '@/modules/uploader/atom'
+import { useUploaderState } from '@/modules/uploader/atom'
 import FastImage from 'react-native-fast-image'
 
 function AssetUploader() {
-  //   console.log('@@---------------assets', assets)
-  const [assets, setAssets] = useRecoilState(assetStatus)
+  const { uploaderState, setUploaderState } = useUploaderState()
 
   const standByAssets = () => {
     void launchImageLibrary(
@@ -21,22 +20,24 @@ function AssetUploader() {
       },
       async (res) => {
         if (!res.assets) return
-        setAssets(res.assets)
+        setUploaderState(res.assets)
       }
     )
   }
 
-  if (!assets)
+  if (!uploaderState)
     return (
-      <Pressable onPress={standByAssets}>
-        <MyIcons name='SquarePlus' />
+      <Pressable style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={standByAssets}>
+        <MyIcons name='SquarePlus' color='#999999' />
       </Pressable>
     )
 
   return (
     <>
-      {assets.map((asset) => (
-        <FastImage style={{ width: 150, height: 150 }} source={{ uri: asset.uri }} />
+      {uploaderState.map((asset) => (
+        <Pressable key={asset.id} onPress={standByAssets} style={{ flex: 1 }}>
+          <FastImage style={{ flex: 1 }} source={{ uri: asset.uri }} />
+        </Pressable>
       ))}
     </>
   )
