@@ -24,6 +24,8 @@ const Arrow = React.lazy<ComponentType<BasicProps>>(() => import(`./Arrow`))
 const Comet = React.lazy<ComponentType<BasicProps>>(() => import(`./Comet`))
 const Envelope = React.lazy<ComponentType<BasicProps>>(() => import(`./Envelope`))
 const Flower = React.lazy<ComponentType<BasicProps>>(() => import(`./Flower`))
+const Stamp = React.lazy<ComponentType<BasicProps>>(() => import(`./Stamp`))
+const Rotation = React.lazy<ComponentType<BasicProps>>(() => import(`./Rotation`))
 
 export const RegisteredIcons = {
   Universe,
@@ -37,4 +39,6 @@ export const RegisteredIcons = {
   Comet,
   Envelope,
   Flower,
+  Stamp,
+  Rotation,
 }

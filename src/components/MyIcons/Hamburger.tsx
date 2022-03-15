@@ -2,9 +2,11 @@ import React from 'react'
 import Svg, { Path } from 'react-native-svg'
 import { BasicProps } from './type'
 
-function Hamburger({}: BasicProps) {
+function Hamburger({ stretch }: BasicProps) {
+  const width = stretch ? '100%' : '16'
+  const height = stretch ? '100%' : '12'
   return (
-    <Svg width='16' height='12' viewBox='0 0 16 12' fill='none'>
+    <Svg width={width} height={height} viewBox='0 0 16 12' fill='none'>
       <Path
         fill='#fff'
         fill-rule='evenodd'
