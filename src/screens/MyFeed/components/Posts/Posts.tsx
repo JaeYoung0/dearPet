@@ -1,11 +1,16 @@
 import CustomText from '@/components/CustomText'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import MyIcons from '@/components/MyIcons'
 import PostThumbnail from '@/components/PostThumbnail'
+import Tab from '@/components/Tabs/Tab'
+import TabList from '@/components/Tabs/TabList'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import usePosts from '@/modules/posts/usePosts'
 import { PostModel } from '@/server/posts/model'
-import React from 'react'
-import { View, Pressable, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import { View, Pressable, Text } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import { FeedTabList, Profile } from '../../MyFeed'
 
 export default function Posts() {
   const { data: myPosts, refetch, isLoading, isFetching, error } = usePosts()
@@ -40,8 +45,10 @@ export default function Posts() {
   }
 
   return (
-    <View style={{ padding: 20, width: '100%', height: '100%' }}>
+    <View style={{ padding: 20 }}>
       <FlatList
+        stickyHeaderHiddenOnScroll={true}
+        showsVerticalScrollIndicator={false}
         data={myPosts}
         renderItem={renderPost}
         keyExtractor={(item) => item.id}
