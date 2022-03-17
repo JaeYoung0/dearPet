@@ -18,6 +18,7 @@ import * as S from './WritePost.style'
 import { useForm, FormProvider, SubmitHandler, SubmitErrorHandler, UseFormHandleSubmit } from 'react-hook-form'
 import useAnimation from '@/hooks/useAnimation'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import BasicModal from '@/components/Modals/BasicModal'
 
 type FormValues = {
   title: string
@@ -31,6 +32,8 @@ function WritePost() {
   })
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const [modalVisible, setModalVisible] = useState(false)
 
   const me = useRecoilValue(userStatus)
   const navigation = useCustomNavi()
@@ -61,7 +64,7 @@ function WritePost() {
   }
 
   const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
-    console.log(errors)
+    console.log('@@errors', errors)
   }
 
   const { goValueOf, animation } = useAnimation()
@@ -98,7 +101,9 @@ function WritePost() {
             </Pressable>,
 
             <Pressable
-              onPress={methods.handleSubmit(onSubmit, onError)}
+              onPress={() => {
+                setModalVisible(true)
+              }}
               style={{
                 width: 44,
                 height: 44,
@@ -183,6 +188,20 @@ function WritePost() {
             </S.AnimatedView>
           </FormProvider>
         </View>
+
+        <BasicModal
+          visible={modalVisible}
+          content={`편지를 보낼까요 ?`}
+          cancelText='취소'
+          onCancel={() => {
+            setModalVisible(false)
+          }}
+          confirmText='전송'
+          onConfirm={() => {
+            setModalVisible(false)
+            methods.handleSubmit(onSubmit, onError)
+          }}
+        />
       </View>
     </Layout>
   )
