@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import * as S from './Layout.style'
 
 type Props = {
-  children: JSX.Element
+  children: ReactNode
   style?: StyleProp<ViewStyle>
 }
 
