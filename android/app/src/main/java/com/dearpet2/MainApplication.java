@@ -1,5 +1,9 @@
 package com.dearpet2;
 
+// react-native-reanimated
+import com.facebook.react.bridge.JSIModulePackage; 
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; 
+
 import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.brentvatne.react.ReactVideoPackage;
 import android.app.Application;
@@ -36,6 +40,11 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+        @Override
+        protected JSIModulePackage getJSIModulePackage() {
+          return new ReanimatedJSIModulePackage(); 
+      }
       };
 
   @Override
