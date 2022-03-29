@@ -2,11 +2,13 @@ import React from 'react'
 import Svg, { Path } from 'react-native-svg'
 import { BasicProps } from './type'
 
-export default function Envelope({ focused }: BasicProps) {
+export default function Envelope({ focused, stretch }: BasicProps) {
   const focusColor = focused ? '#fff' : '#666666'
+  const width = stretch ? '100%' : '29'
+  const height = stretch ? '100%' : '23'
 
   return (
-    <Svg width='29' height='23' fill='none' viewBox='0 0 29 23'>
+    <Svg width={width} height={height} fill='none' viewBox='0 0 29 23'>
       <Path
         fillRule='evenodd'
         clipRule='evenodd'

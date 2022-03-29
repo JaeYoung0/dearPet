@@ -31,7 +31,7 @@ function MyFeedHeader() {
           }}
           onPress={() => navigation.navigate('WritePost', {})}
         >
-          <View style={{ width: 24, height: 24 }}>
+          <View style={{ width: 22, height: 22 }}>
             <MyIcons name='SquarePlus' stretch />
           </View>
         </Pressable>,
@@ -44,7 +44,7 @@ function MyFeedHeader() {
             height: 44,
           }}
         >
-          <View style={{ width: 24, height: 24 }}>
+          <View style={{ width: 22, height: 22 }}>
             <MyIcons name='Hamburger' stretch />
           </View>
         </Pressable>,
@@ -84,10 +84,14 @@ export function FeedTabList() {
       }}
     >
       <Tab value='posts'>
-        <MyIcons name='Envelope' focused={value === 'posts'} />
+        <View style={{ width: 25, height: 25 }}>
+          <MyIcons name='Envelope' focused={value === 'posts'} stretch />
+        </View>
       </Tab>
       <Tab value='comments'>
-        <MyIcons name='Flower' focused={value === 'comments'} />
+        <View style={{ width: 30, height: 30 }}>
+          <MyIcons name='Flower' focused={value === 'comments'} stretch />
+        </View>
       </Tab>
     </TabList>
   )

@@ -2,11 +2,13 @@ import React from 'react'
 import Svg, { Path, G } from 'react-native-svg'
 import { BasicProps } from './type'
 
-export default function Flower({ focused }: BasicProps) {
+export default function Flower({ focused, stretch }: BasicProps) {
   const focusColor = focused ? '#fff' : '#666666'
+  const width = stretch ? '100%' : '38'
+  const height = stretch ? '100%' : '37'
 
   return (
-    <Svg width='38' height='37' fill='none' viewBox='0 0 38 37'>
+    <Svg width={width} height={height} fill='none' viewBox='0 0 38 37'>
       <G stroke={focusColor} strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'>
         <Path d='M5.688 27.819a37.133 37.133 0 0 0 14.263-10.37M16.15 21.916s3.472-.601 4.572 1.7a5.262 5.262 0 0 0 2.912 2.702 6.146 6.146 0 0 1-2.442.609 6.233 6.233 0 0 1-2.493-.418 6.305 6.305 0 0 1-3.554-3.48' />
         <Path d='M11.327 24.782s1.29-3.26-.687-4.842a4.79 4.79 0 0 1-2.074-3.385 6.126 6.126 0 0 0-1.189 2.249 6.205 6.205 0 0 0-.178 2.549 6.32 6.32 0 0 0 2.622 4.293M22.946 12.24l1.645-1.48c1.377-1.237 5.391-4.004 5.913-3.424.522.581-2.886 4.484-4.11 5.584L24.749 14.4M20.506 8.834l.403-.782c1.784-2.863 4.093-3.68 3.509-4.484-.585-.804-1.91.107-3.85 1.641' />
