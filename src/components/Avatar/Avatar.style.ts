@@ -3,16 +3,16 @@ import styled, { css } from '@emotion/native'
 import FastImage from 'react-native-fast-image'
 
 export const Frame = styled(FastImage)({
-  width: 150,
-  height: 150,
+  width: 100,
+  height: 100,
 
   justifyContent: 'center',
   alignItems: 'center',
 })
 
 export const Img = styled(FastImage)`
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   border-radius: 100px;
   border: 2px solid ${COLORS.BROWN01};
 `

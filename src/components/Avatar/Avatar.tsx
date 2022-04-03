@@ -5,12 +5,29 @@ import useAvatar from './useAvatar'
 import { userStatus } from '@/modules/user/atoms'
 import { useRecoilValue } from 'recoil'
 import LoadingIndicator from '../LoadingIndicator'
-function Avatar() {
+import { css } from '@emotion/native'
+
+interface Props {
+  size?: 'lg' | 'sm'
+}
+
+function Avatar({ size = 'lg' }: Props) {
+  const frameSize = {
+    width: size === 'lg' ? 150 : 100,
+    height: size === 'lg' ? 150 : 100,
+  }
+
+  const imgSize = {
+    width: size === 'lg' ? 100 : 75,
+    height: size === 'lg' ? 100 : 75,
+  }
+
   const me = useRecoilValue(userStatus)
 
   const { onSelectImage, isUploading } = useAvatar()
 
   if (!me) return <LoadingIndicator />
+  console.log('@@size', size)
 
   return (
     <Pressable onPress={onSelectImage}>
@@ -19,7 +36,11 @@ function Avatar() {
       ) : (
         <View>
           <S.Frame source={require('@assets/images/frame.png')}>
-            <S.Img source={{ uri: me.photoURL }} />
+            <S.Img
+              source={{ uri: me.photoURL }}
+              // FIXME: 적용안됨
+              //  style={{ width: `${imgSize.width}`, height: `${imgSize.height}` }}
+            />
           </S.Frame>
         </View>
       )}
