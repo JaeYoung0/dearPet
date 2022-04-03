@@ -108,14 +108,11 @@ function MyFeed() {
   const [value, setvalue] = useState('posts')
 
   return (
-    <Layout style={{ padding: 0 }}>
+    <Layout style={{ padding: 0, backgroundColor: '#000000' }}>
       <View style={{ flex: 1 }}>
-        <S.BgImg source={require('@assets/images/post_bg2.jpeg')} />
+        {/* <S.BgImg source={require('@assets/images/post_bg2.jpeg')} /> */}
         <View style={{ padding: 15, paddingBottom: 0 }}>
           <MyFeedHeader />
-        </View>
-        <View>
-          <Profile />
         </View>
 
         <TabProvider initialValue={'posts'}>
