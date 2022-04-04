@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Favorite from '@/screens/Favorite'
+import Feed from '@/screens/Feed'
 import Universe from '@/screens/Universe'
 import MyIcons from '@/components/MyIcons'
 import MyPet from '@/navigation/MyPet'
@@ -41,8 +41,8 @@ const Main = () => {
       />
 
       <MainBottomTab.Screen
-        name='Favorite'
-        component={Favorite}
+        name='Feed'
+        component={Feed}
         options={{
           tabBarIcon: ({ focused }) => <MyIcons name='Compass' focused={focused} />,
         }}
