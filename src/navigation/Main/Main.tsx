@@ -2,10 +2,10 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import Favorite from '@/screens/Favorite'
-import MyInfo from '@/screens/MyInfo'
 import Universe from '@/screens/Universe'
 import MyIcons from '@/components/MyIcons'
 import MyPet from '@/navigation/MyPet'
+import Setting from '@/navigation/Setting'
 
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()
@@ -49,8 +49,8 @@ const Main = () => {
       />
 
       <MainBottomTab.Screen
-        name='MyInfo'
-        component={MyInfo}
+        name='Setting'
+        component={Setting}
         options={{
           tabBarIcon: ({ focused }) => <MyIcons name='Person' focused={focused} />,
         }}

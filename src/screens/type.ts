@@ -7,7 +7,17 @@ export type ScreenParams = {
   MyPet: {}
   PostCard: { postId: string }
   SignUp: {}
+
+  // Settings Navigation
+  Notice: {}
+  Privacy: {}
+  Alarm: {}
+  Instruction: {}
+  Donation: {}
+  Proposal: {}
 }
+
+export type ScreenNames = keyof ScreenParams
 
 export type RouteProps = {
   [P in keyof ScreenParams]: {

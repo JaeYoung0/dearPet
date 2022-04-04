@@ -17,10 +17,14 @@ import EntypoIcon from 'react-native-vector-icons/Entypo'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
+import { useNavigation } from '@react-navigation/native'
+import useCustomNavi from '@/hooks/useCustomNavi'
+import { ScreenNames } from '@/screens/type'
 
 type MenuItem = {
   id: string
   title: string
+  screen?: ScreenNames
   onPress?: () => void
   icon: any
 }
@@ -55,37 +59,45 @@ function AvatarBox() {
 function MyInfo() {
   const [me, setMe] = useRecoilState(userStatus)
 
+  const navigation = useCustomNavi()
+
   // FlatList의 keyExtractor는 string으로 타입이 정해져있기 때문에 id는 string으로 쓴다.
   // 그런데 keyExtractor가 딱히 필요없는 것 같기도하다.
   const DATA: MenuItem[] = [
     {
       id: '1',
       title: '공지사항',
+      screen: 'Notice',
       icon: <EntypoIcon name='sound' size={20} />,
     },
     {
       id: '2',
       title: '개인/보안',
+      screen: 'Privacy',
       icon: <EntypoIcon name='lock' size={20} />,
     },
     {
       id: '3',
       title: '알림',
+      screen: 'Alarm',
       icon: <MaterialIcon name='access-alarm' size={20} />,
     },
     {
       id: '4',
-      title: '앱 사용법 안내',
+      title: '앱 사용법',
+      screen: 'Instruction',
       icon: <MaterialIcon name='mobile-friendly' size={20} />,
     },
     {
       id: '5',
       title: '기부하기',
+      screen: 'Donation',
       icon: <MaterialCommunityIcon name='hand-heart-outline' size={20} />,
     },
     {
       id: '6',
       title: '관리자에게',
+      screen: 'Proposal',
       icon: <MaterialCommunityIcon name='email' size={20} />,
     },
     {
@@ -122,10 +134,24 @@ function MyInfo() {
     },
   ]
 
+  const handlePress = (item: MenuItem) => {
+    if (item.screen) {
+      navigation.navigate(item.screen, {})
+    } else {
+      item.onPress?.()
+    }
+  }
+
   const renderItem = ({ item }: { item: MenuItem }) => (
     <Pressable
-      onPress={item.onPress}
-      style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }, { padding: 20 }, { flexDirection: 'row' }]}
+      onPress={() => handlePress(item)}
+      style={({ pressed }) => [
+        { opacity: pressed ? 0.8 : 1 },
+        { padding: 20 },
+        { flexDirection: 'row' },
+        { borderBottomColor: '0.5px solid rgba(225, 225, 225, 0.18)' },
+        { borderBottomWidth: 1 },
+      ]}
     >
       <Text
         style={css`
@@ -149,6 +175,7 @@ function MyInfo() {
       style={css`
         padding: 0;
         background-color: #000000;
+        padding: 10px;
       `}
     >
       <AvatarBox />
