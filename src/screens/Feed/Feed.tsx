@@ -1,6 +1,6 @@
 import SofiaText from '@/components/SofiaText'
 import React, { useRef } from 'react'
-import { useWindowDimensions, Pressable, Alert } from 'react-native'
+import { useWindowDimensions, Pressable, Alert, View } from 'react-native'
 import Layout from '@/components/Layout'
 import Carousel from 'react-native-snap-carousel'
 import * as S from './Feed.style'
@@ -69,7 +69,7 @@ function Feed() {
 
   const handlePress = (index: number) => {
     Alert.alert(`${index}`)
-    carouselRef.current?.snapToItem(index)
+    // carouselRef.current?.snapToItem(index)
   }
 
   const renderItem = ({ item, index }: { item: MessageItem; index: number }) => {
@@ -82,17 +82,20 @@ function Feed() {
 
   return (
     <Layout style={{ backgroundColor: '#13141a', padding: 0 }}>
-      <SofiaText weight={600} style={{ color: '#fff', fontSize: 18, padding: 20 }}>{`치유의 시간 >`}</SofiaText>
+      <SofiaText weight={600} style={{ color: '#fff', fontSize: 18, padding: 20 }}>{`치유의 시간`}</SofiaText>
       <Carousel
+        enableSnap={false}
         ref={carouselRef}
         data={DATA}
         itemWidth={horizontalScale(150)}
         itemHeight={verticalScale(229)}
         sliderWidth={width}
-        sliderHeight={width}
         hasParallaxImages={true}
         renderItem={renderItem}
       />
+      <View>
+        <SofiaText weight={600} style={{ color: '#fff', fontSize: 18, padding: 20 }}>{`새로 도착한 편지`}</SofiaText>
+      </View>
     </Layout>
   )
 }
