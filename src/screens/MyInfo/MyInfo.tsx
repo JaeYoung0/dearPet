@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet, View, Alert, FlatList, Pressable } from 'react-native'
+import { Text, View, Alert, FlatList, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import auth from '@react-native-firebase/auth'
 import { Button } from 'react-native'
@@ -8,16 +8,12 @@ import { useRecoilState } from 'recoil'
 import { useMeState, userStatus } from '@/modules/user/atoms'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Layout from '@/components/Layout'
-import Header from '@/components/Header'
-import Avatar from '@/components/Avatar'
 import SofiaText from '@/components/SofiaText'
+import AvatarBox from '@/components/AvatarBox'
 import { css } from '@emotion/native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
-import { useNavigation } from '@react-navigation/native'
 import useCustomNavi from '@/hooks/useCustomNavi'
 import { ScreenNames } from '@/screens/type'
 
@@ -27,33 +23,6 @@ type MenuItem = {
   screen?: ScreenNames
   onPress?: () => void
   icon: any
-}
-
-function AvatarBox() {
-  const { me } = useMeState()
-  return (
-    <View
-      style={css`
-        padding: 20px;
-        flex-direction: row;
-        align-items: center;
-      `}
-    >
-      <View
-        style={css`
-          margin-right: 15;
-        `}
-      >
-        <Avatar />
-      </View>
-      <View>
-        <SofiaText weight={500} style={{ fontSize: 22, color: '#fff' }}>
-          {me?.displayName}
-        </SofiaText>
-        <SofiaText style={{ fontSize: 16 }}>별이된 지 263일 째</SofiaText>
-      </View>
-    </View>
-  )
 }
 
 function MyInfo() {
@@ -149,8 +118,8 @@ function MyInfo() {
         { opacity: pressed ? 0.8 : 1 },
         { padding: 20 },
         { flexDirection: 'row' },
-        { borderBottomColor: '0.5px solid rgba(225, 225, 225, 0.18)' },
-        { borderBottomWidth: 1 },
+        { borderBottomColor: ' rgba(225, 225, 225, 0.18)' },
+        { borderBottomWidth: 0.5 },
       ]}
     >
       <Text
