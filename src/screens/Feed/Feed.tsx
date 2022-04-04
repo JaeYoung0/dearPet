@@ -1,95 +1,98 @@
 import SofiaText from '@/components/SofiaText'
-import React from 'react'
-import { View } from 'react-native'
+import React, { useRef } from 'react'
+import { useWindowDimensions, Pressable, Alert } from 'react-native'
 import Layout from '@/components/Layout'
 import Carousel from 'react-native-snap-carousel'
 import * as S from './Feed.style'
+import { horizontalScale, verticalScale } from '@/utils/adjustSize'
+import { Source } from 'react-native-fast-image'
 
 type MessageItem = {
   id: number
-  imgUrl: string
+  imgUrl: Source
 }
 
-const DATA = [
+const DATA: MessageItem[] = [
   {
     id: 1,
-    imgUrl: '@assets/images/message/message_1.png',
+    imgUrl: require('@assets/images/message/message_1.png'),
   },
   {
     id: 2,
-    imgUrl: '@assets/images/message/message_2.png',
+    imgUrl: require('@assets/images/message/message_2.png'),
   },
   {
     id: 3,
-    imgUrl: '@assets/images/message/message_3.png',
+    imgUrl: require('@assets/images/message/message_3.png'),
   },
   {
     id: 4,
-    imgUrl: '@assets/images/message/message_4.png',
+    imgUrl: require('@assets/images/message/message_4.png'),
   },
   {
     id: 5,
-    imgUrl: '@assets/images/message/message_5.png',
+    imgUrl: require('@assets/images/message/message_5.png'),
   },
   {
     id: 6,
-    imgUrl: '@assets/images/message/message_6.png',
+    imgUrl: require('@assets/images/message/message_6.png'),
   },
   {
     id: 7,
-    imgUrl: '@assets/images/message/message_7.png',
+    imgUrl: require('@assets/images/message/message_7.png'),
   },
   {
     id: 8,
-    imgUrl: '@assets/images/message/message_8.png',
+    imgUrl: require('@assets/images/message/message_8.png'),
   },
   {
     id: 9,
-    imgUrl: '@assets/images/message/message_9.png',
+    imgUrl: require('@assets/images/message/message_9.png'),
   },
   {
     id: 10,
-    imgUrl: '@assets/images/message/message_10.png',
+    imgUrl: require('@assets/images/message/message_10.png'),
   },
   {
     id: 11,
-    imgUrl: '@assets/images/message/message_11.png',
+    imgUrl: require('@assets/images/message/message_11.png'),
   },
   {
     id: 12,
-    imgUrl: '@assets/images/message/message_12.png',
+    imgUrl: require('@assets/images/message/message_12.png'),
   },
 ]
 
 function Feed() {
+  const { width } = useWindowDimensions()
+  const carouselRef = useRef<Carousel<any> | null>(null)
+
+  const handlePress = (index: number) => {
+    Alert.alert(`${index}`)
+    carouselRef.current?.snapToItem(index)
+  }
+
+  const renderItem = ({ item, index }: { item: MessageItem; index: number }) => {
+    return (
+      <Pressable onPress={() => handlePress(index)}>
+        <S.MessageImg source={DATA[Number(index)]?.imgUrl} />
+      </Pressable>
+    )
+  }
+
   return (
-    <Layout style={{ backgroundColor: '#13141a' }}>
-      <SofiaText weight={600} style={{ color: '#fff', fontSize: 18 }}>{`치유의 시간 >`}</SofiaText>
+    <Layout style={{ backgroundColor: '#13141a', padding: 0 }}>
+      <SofiaText weight={600} style={{ color: '#fff', fontSize: 18, padding: 20 }}>{`치유의 시간 >`}</SofiaText>
       <Carousel
+        ref={carouselRef}
         data={DATA}
-        itemWidth={150}
-        itemHeight={229}
-        renderItem={({ item }) => {
-          return (
-            <View style={{ width: 300, height: 300 }}>
-              <S.MessageImg source={require('@assets/images/message/message_11.png')} />
-            </View>
-          )
-        }}
+        itemWidth={horizontalScale(150)}
+        itemHeight={verticalScale(229)}
+        sliderWidth={width}
+        sliderHeight={width}
+        hasParallaxImages={true}
+        renderItem={renderItem}
       />
-      {/* <Swiper
-        loop={false}
-        showsButtons={false}
-        // dotStyle={styles.dot}
-        // paginationStyle={{ bottom: 80 }}
-      >
-        <View style={{ width: '50%' }}>
-          <S.MessageImg source={require('@assets/images/message/message_1.png')} />
-        </View>
-        <View style={{ width: '50%' }}>
-          <S.MessageImg source={require('@assets/images/message/message_2.png')} />
-        </View>
-      </Swiper> */}
     </Layout>
   )
 }
