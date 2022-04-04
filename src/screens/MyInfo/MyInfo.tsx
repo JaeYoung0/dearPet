@@ -78,7 +78,7 @@ function MyInfo() {
     },
     {
       id: '3',
-      title: '알림',
+      title: '알람',
       screen: 'Alarm',
       icon: <MaterialIcon name='access-alarm' size={20} />,
     },
