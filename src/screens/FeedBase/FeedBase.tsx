@@ -3,78 +3,24 @@ import React, { useRef } from 'react'
 import { useWindowDimensions, Pressable, Alert, View } from 'react-native'
 import Layout from '@/components/Layout'
 import Carousel from 'react-native-snap-carousel'
-import * as S from './Feed.style'
+import * as S from './FeedBase.style'
 import { horizontalScale, verticalScale } from '@/utils/adjustSize'
-import { Source } from 'react-native-fast-image'
+import useCustomNavi from '@/hooks/useCustomNavi'
 
-type MessageItem = {
-  id: number
-  imgUrl: Source
-}
-
-const DATA: MessageItem[] = [
-  {
-    id: 1,
-    imgUrl: require('@assets/images/message/message_1.png'),
-  },
-  {
-    id: 2,
-    imgUrl: require('@assets/images/message/message_2.png'),
-  },
-  {
-    id: 3,
-    imgUrl: require('@assets/images/message/message_3.png'),
-  },
-  {
-    id: 4,
-    imgUrl: require('@assets/images/message/message_4.png'),
-  },
-  {
-    id: 5,
-    imgUrl: require('@assets/images/message/message_5.png'),
-  },
-  {
-    id: 6,
-    imgUrl: require('@assets/images/message/message_6.png'),
-  },
-  {
-    id: 7,
-    imgUrl: require('@assets/images/message/message_7.png'),
-  },
-  {
-    id: 8,
-    imgUrl: require('@assets/images/message/message_8.png'),
-  },
-  {
-    id: 9,
-    imgUrl: require('@assets/images/message/message_9.png'),
-  },
-  {
-    id: 10,
-    imgUrl: require('@assets/images/message/message_10.png'),
-  },
-  {
-    id: 11,
-    imgUrl: require('@assets/images/message/message_11.png'),
-  },
-  {
-    id: 12,
-    imgUrl: require('@assets/images/message/message_12.png'),
-  },
-]
+import { MessageItem, HealingGuideItem, FEED_HEALING_DATA } from '@/navigation/Feed/data'
 
 function HealingProcess() {
   const { width } = useWindowDimensions()
   const carouselRef = useRef<Carousel<any> | null>(null)
-
+  const navigation = useCustomNavi()
   const handlePress = (index: number) => {
-    Alert.alert(`${index}`)
+    navigation.navigate('HealingGuide', { healingId: index })
   }
 
   const renderItem = ({ item, index }: { item: MessageItem; index: number }) => {
     return (
       <Pressable onPress={() => handlePress(index)}>
-        <S.MessageImg source={DATA[Number(index)]?.imgUrl} />
+        <S.MessageImg source={FEED_HEALING_DATA[Number(index)]?.imgUrl} />
       </Pressable>
     )
   }
@@ -90,7 +36,7 @@ function HealingProcess() {
         activeSlideAlignment='start'
         containerCustomStyle={{ padding: 20 }}
         ref={carouselRef}
-        data={DATA}
+        data={FEED_HEALING_DATA}
         itemWidth={horizontalScale(150)}
         itemHeight={verticalScale(229)}
         sliderWidth={width}

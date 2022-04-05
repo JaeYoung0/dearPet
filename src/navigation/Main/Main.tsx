@@ -1,11 +1,10 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import Feed from '@/screens/Feed'
 import Universe from '@/screens/Universe'
 import MyIcons from '@/components/MyIcons'
 import MyPet from '@/navigation/MyPet'
 import Setting from '@/navigation/Setting'
+import Feed from '@/navigation/Feed'
 
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()
