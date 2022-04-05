@@ -22,9 +22,9 @@ export const ContentWrapper = styled.View({
   alignItems: 'center',
 })
 
-export const Petwings = styled(FastImage)({
-  width: 200,
-  height: 200,
+export const PetwingsGif = styled(FastImage)({
+  width: 150,
+  height: 150,
 })
 
 export const Text = styled(CustomText)({

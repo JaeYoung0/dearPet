@@ -23,7 +23,7 @@ export default function LoadingIndicator({ type = 'basic' }: Props) {
         <S.BackgroundImg source={require('@assets/images/loading_bg.png')} />
 
         <S.ContentWrapper>
-          <S.Petwings source={require('@assets/images/petwings.gif')} />
+          <S.PetwingsGif source={require('@assets/images/petwings.gif')} />
           <S.Text>Loading ...</S.Text>
         </S.ContentWrapper>
       </SafeAreaView>
