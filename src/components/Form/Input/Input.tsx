@@ -22,6 +22,7 @@ export default function Input({ label, name, rules, defaultValue, placeholderTex
   const { formState } = formContext
 
   const errorMsg = formState.errors[name]?.message
+  console.log('@@errorMsg', errorMsg)
 
   return (
     <>
@@ -34,6 +35,9 @@ export default function Input({ label, name, rules, defaultValue, placeholderTex
         value={field.value}
       />
 
+      {/* FIXME: Postcard에서 토스트 메시지를 띄우기 */}
+      {/* https://openbase.com/js/react-native-dropdownalert#installation */}
+      {/* https://openbase.com/js/react-native-root-toast */}
       {errorMsg && <S.ErrorText>{errorMsg}</S.ErrorText>}
     </>
   )

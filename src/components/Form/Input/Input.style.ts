@@ -21,4 +21,6 @@ export const Input = styled(TextInput)({
 
 export const ErrorText = styled(CustomText)({
   fontSize: 12,
+  color: '#7E71F3',
+  textAlign: 'center',
 })

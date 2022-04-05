@@ -52,12 +52,18 @@ function WritePost() {
       const { title, content } = data
 
       if (!photoURL) return
+      if (!title) {
+        return methods.setError('title', { message: '제목을 공백으로 제출할 수 없습니다.' })
+      }
+      if (!content) {
+        return methods.setError('content', { message: '내용을 공백으로 제출할 수 없습니다.' })
+      }
       await createPost({ user: me, title, content, photoURL })
       setUploaderState(null)
       await refetch()
       navigation.goBack()
     } catch (error) {
-      console.error(error)
+      console.error('@@onSubmit error', error)
     } finally {
       setIsLoading(false)
     }
@@ -140,13 +146,19 @@ function WritePost() {
                 </S.MetaWrapper>
 
                 <S.FormWrapper style={{ flex: 1 }}>
-                  <S.TitleInput name='title' placeholder='제목을 입력해주세요.' placeholderTextColor='#000000' />
+                  <S.TitleInput
+                    name='title'
+                    placeholder='제목을 입력해주세요.'
+                    placeholderTextColor='#000000'
+                    // rules={{ required: true }}
+                  />
                   <S.ContentInput
                     name='content'
                     multiline
                     placeholder='내용을 입력해주세요.'
                     placeholderTextColor='#000000'
                     textAlignVertical='top'
+                    // rules={{ required: true }}
                   />
                 </S.FormWrapper>
               </S.LetterBody>
