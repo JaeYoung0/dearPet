@@ -30,7 +30,6 @@ function WritePost() {
   const { uploadImages } = useUploadImages({
     path: '/images/post',
   })
-  // console.log('@@uploaderState', uploaderState)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,12 +45,9 @@ function WritePost() {
   const backSideTitle = methods.getValues('title')
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log('@@onSubmit', data)
-
     setIsLoading(true)
     try {
       const photoURL = await uploadImages()
-      console.log('@@photoURL', photoURL)
 
       const { title, content } = data
 
@@ -203,7 +199,6 @@ function WritePost() {
           confirmText='전송'
           onConfirm={() => {
             setModalVisible(false)
-            console.log('@@1')
 
             methods.handleSubmit(onSubmit, onError)()
           }}
