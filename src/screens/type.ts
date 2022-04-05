@@ -15,6 +15,10 @@ export type ScreenParams = {
   Instruction: {}
   Donation: {}
   Proposal: {}
+
+  // Feed Naigation
+  FeedBase: {}
+  HealingGuide: { healingId: number }
 }
 
 export type ScreenNames = keyof ScreenParams
