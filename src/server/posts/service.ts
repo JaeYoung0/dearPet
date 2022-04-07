@@ -4,10 +4,8 @@ import { PostModel } from './model'
 
 const postsCollection = firestore().collection<PostModel | Omit<PostModel, 'id'>>('Posts')
 
-export async function fetchPosts(licenseId?: string): Promise<PostModel[]> {
+export async function fetchPosts(licenseId: string | null): Promise<PostModel[]> {
   let query = postsCollection.orderBy('createdAt', 'desc')
-
-  console.log('@@licenseId', licenseId)
 
   if (licenseId) {
     query = query.where('user.licenseId', '==', licenseId)

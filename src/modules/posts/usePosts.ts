@@ -1,4 +1,3 @@
-import React from 'react'
 import { fetchPosts } from '@/server/posts/service'
 import { useQuery } from 'react-query'
 import { PostModel } from '@/server/posts/model'
@@ -22,11 +21,10 @@ import { PostModel } from '@/server/posts/model'
  */
 
 function usePosts(licenseId?: string) {
-  const result = useQuery<PostModel[]>(['@modules/posts', licenseId], () => fetchPosts(licenseId), {
+  const result = useQuery<PostModel[]>(['@modules/posts', licenseId], () => fetchPosts(licenseId ?? null), {
     retry: 3,
     staleTime: 1000 * 60 * 3, // default 0. 얼마 지나야 상한 데이터로 판단하고 다시 네트워크 요청을 할 것인가 ?
     cacheTime: 1000 * 60 * 5, // default 5분. 언마운트 되고나서 얼마동안 캐싱할 것인가?
-    enabled: Boolean(licenseId),
   })
   console.log('@@result', result.data)
 

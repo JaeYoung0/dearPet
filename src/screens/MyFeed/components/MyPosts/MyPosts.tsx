@@ -18,7 +18,6 @@ export default function MyPosts() {
     return (
       <Pressable onPress={() => navi.navigate('PostCard', { postId: item.id })}>
         <ImageCard key={item.id} {...item} />
-        {/* <PostThumbnail key={item.id} post={item} order={index} /> */}
       </Pressable>
     )
   }

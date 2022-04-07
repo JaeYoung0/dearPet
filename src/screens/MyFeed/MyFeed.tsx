@@ -16,7 +16,6 @@ import AvatarBox from '@/components/AvatarBox'
 function MyFeedHeader() {
   const navigation = useCustomNavi()
   const { tabValue } = useTabContext()
-  console.log('@@tabValue', tabValue)
 
   return (
     <Header
