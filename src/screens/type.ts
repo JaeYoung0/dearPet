@@ -5,7 +5,7 @@ export type ScreenParams = {
   MyFeed: {}
   WritePost: {}
   MyPet: {}
-  PostCard: { postId: string }
+  PostCard: { postId?: string }
   SignUp: {}
 
   // Settings Navigation

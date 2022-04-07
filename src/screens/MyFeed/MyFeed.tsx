@@ -30,7 +30,7 @@ function MyFeedHeader() {
           }}
           onPress={() => {
             if (tabValue === 'posts') {
-              navigation.navigate('WritePost', {})
+              navigation.navigate('PostCard', {})
             } else {
               Alert.alert('코멘트 추가는 준비 중입니다.')
             }

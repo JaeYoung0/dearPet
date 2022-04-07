@@ -19,6 +19,7 @@ import { useForm, FormProvider, SubmitHandler, SubmitErrorHandler, UseFormHandle
 import useAnimation from '@/hooks/useAnimation'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import BasicModal from '@/components/Modals/BasicModal'
+import OcticonsIcon from 'react-native-vector-icons/Octicons'
 
 type FormValues = {
   title: string
@@ -117,7 +118,8 @@ function WritePost() {
                 alignItems: 'center',
               }}
             >
-              <MyIcons name='Comet' color='#fff' />
+              <OcticonsIcon name='paper-airplane' size={25} color='#fff' />
+              {/* <MyIcons name='Comet' color='#fff' /> */}
             </Pressable>,
           ]}
         />
