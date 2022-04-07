@@ -11,6 +11,7 @@ interface Props {
   size?: 'lg' | 'sm'
 }
 
+// FIXME: Avatar에 타인의 정보도 들어갈 수 있다.
 function Avatar({ size = 'lg' }: Props) {
   const frameSize = {
     width: size === 'lg' ? 150 : 100,

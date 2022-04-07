@@ -21,12 +21,14 @@ import { PostModel } from '@/server/posts/model'
  * 만약 의도적으로 refetch 시에도 Loader를 그려주고 싶다면 isLoading이 아닌 isFetching을 사용해야 한다.
  */
 
-function usePosts() {
-  const result = useQuery<PostModel[]>('@posts', () => fetchPosts(), {
+function usePosts(licenseId?: string) {
+  const result = useQuery<PostModel[]>(['@modules/posts', licenseId], () => fetchPosts(licenseId), {
     retry: 3,
     staleTime: 1000 * 60 * 3, // default 0. 얼마 지나야 상한 데이터로 판단하고 다시 네트워크 요청을 할 것인가 ?
     cacheTime: 1000 * 60 * 5, // default 5분. 언마운트 되고나서 얼마동안 캐싱할 것인가?
+    enabled: Boolean(licenseId),
   })
+  console.log('@@result', result.data)
 
   console.log('@@usePosts call--------------------', result.isLoading, result.isFetching)
 

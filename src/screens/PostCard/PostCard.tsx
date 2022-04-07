@@ -143,7 +143,7 @@ function PostCard() {
     Alert.alert('Swipe from right')
   }
 
-  if (isRefetchingByUser) return <LoadingIndicator />
+  if (isLoading || isRefetchingByUser) return <LoadingIndicator type={isLoading ? 'full' : 'basic'} />
 
   return (
     <Layout>

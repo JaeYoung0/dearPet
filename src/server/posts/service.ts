@@ -7,6 +7,8 @@ const postsCollection = firestore().collection<PostModel | Omit<PostModel, 'id'>
 export async function fetchPosts(licenseId?: string): Promise<PostModel[]> {
   let query = postsCollection.orderBy('createdAt', 'desc')
 
+  console.log('@@licenseId', licenseId)
+
   if (licenseId) {
     query = query.where('user.licenseId', '==', licenseId)
   }

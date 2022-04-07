@@ -1,7 +1,8 @@
-import CustomText from '@/components/CustomText'
-import styled, { css } from '@emotion/native'
+import SofiaText from '@/components/SofiaText'
+import styled from '@emotion/native'
 
-export const NoticeText = styled(CustomText)({
+export const NoticeText = styled(SofiaText)({
   textAlign: 'center',
   fontSize: 16,
+  lineHeight: 25,
 })

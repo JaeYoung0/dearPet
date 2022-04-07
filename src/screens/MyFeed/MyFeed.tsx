@@ -5,7 +5,7 @@ import useCustomNavi from '@/hooks/useCustomNavi'
 import MyIcons from '@/components/MyIcons'
 import Header from '@/components/Header'
 import Layout from '@/components/Layout'
-import Posts from './components/Posts'
+import MyPosts from './components/MyPosts'
 import TabProvider, { useTabContext } from '@/components/Tabs/TabContext'
 import TabList from '@/components/Tabs/TabList'
 import Tab from '@/components/Tabs/Tab'
@@ -108,14 +108,14 @@ function MyFeed() {
         <View style={{ padding: 15, paddingBottom: 0 }}>
           <MyFeedHeader />
         </View>
-        <View style={{ marginBottom: 10 }}>
+        <View style={{ marginBottom: 10, marginTop: -20 }}>
           <AvatarBox />
         </View>
 
         <FeedTabList />
 
         <TabPanel value='posts'>
-          <Posts />
+          <MyPosts />
         </TabPanel>
         <TabPanel value='comments'>
           <Comments />
