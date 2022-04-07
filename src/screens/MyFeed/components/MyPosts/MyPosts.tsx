@@ -12,11 +12,11 @@ import { FlatList } from 'react-native-gesture-handler'
 export default function MyPosts() {
   const { me } = useMeState()
   const { data: myPosts, refetch, isLoading, isFetching, error } = usePosts(me?.licenseId)
-  const navi = useCustomNavi()
+  const navigation = useCustomNavi()
 
   const renderPost = ({ item, index }: { item: PostModel; index: number }) => {
     return (
-      <Pressable onPress={() => navi.navigate('PostCard', { postId: item.id })}>
+      <Pressable onPress={() => navigation.navigate('PostCard', { postId: item.id })}>
         <ImageCard key={item.id} {...item} />
       </Pressable>
     )

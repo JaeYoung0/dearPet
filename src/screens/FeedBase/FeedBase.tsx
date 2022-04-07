@@ -6,8 +6,12 @@ import Carousel from 'react-native-snap-carousel'
 import * as S from './FeedBase.style'
 import { horizontalScale, verticalScale } from '@/utils/adjustSize'
 import useCustomNavi from '@/hooks/useCustomNavi'
+import { FlatList } from 'react-native-gesture-handler'
+import { PostModel } from '@/server/posts/model'
+import ImageCard from '@/components/ImageCard'
 
-import { MessageItem, HealingGuideItem, FEED_HEALING_DATA } from '@/navigation/Feed/data'
+import { MessageItem, FEED_HEALING_DATA } from '@/navigation/Feed/data'
+import usePosts from '@/modules/posts/usePosts'
 
 function HealingProcess() {
   const { width } = useWindowDimensions()
@@ -48,9 +52,38 @@ function HealingProcess() {
 }
 
 function LetterFeed() {
+  const navigation = useCustomNavi()
+
+  const { data: allPosts, refetch, isLoading, isFetching, error } = usePosts()
+
+  const renderPost = ({ item, index }: { item: PostModel; index: number }) => {
+    return (
+      <Pressable onPress={() => navigation.navigate('PostCard', { postId: item.id })}>
+        <ImageCard key={item.id} {...item} />
+      </Pressable>
+    )
+  }
+
   return (
-    <View>
-      <SofiaText weight={600} style={{ color: '#fff', fontSize: 18, padding: 20 }}>{`새로 도착한 편지 >`}</SofiaText>
+    <View style={{ padding: 10 }}>
+      <FlatList
+        ListHeaderComponent={
+          <>
+            <HealingProcess />
+            <SofiaText
+              weight={600}
+              style={{ color: '#fff', fontSize: 18, padding: 20, paddingBottom: 0 }}
+            >{`새로 도착한 편지 >`}</SofiaText>
+          </>
+        }
+        numColumns={2}
+        stickyHeaderHiddenOnScroll={true}
+        showsVerticalScrollIndicator={false}
+        data={allPosts}
+        renderItem={renderPost}
+        keyExtractor={(item) => item.id}
+        onEndReachedThreshold={1}
+      />
     </View>
   )
 }
@@ -58,7 +91,6 @@ function LetterFeed() {
 function Feed() {
   return (
     <Layout style={{ backgroundColor: '#13141a', padding: 0 }}>
-      <HealingProcess />
       <LetterFeed />
     </Layout>
   )
