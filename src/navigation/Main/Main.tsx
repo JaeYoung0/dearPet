@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Universe from '@/screens/Universe'
 import MyIcons from '@/components/MyIcons'
 import MyPet from '@/navigation/MyPet'
 import Setting from '@/navigation/Setting'
 import Feed from '@/navigation/Feed'
+import { useFocusEffect } from '@react-navigation/native'
+import { useMeState } from '@/modules/user/atoms'
+import useCustomNavi from '@/hooks/useCustomNavi'
 
 const Main = () => {
   const MainBottomTab = createBottomTabNavigator()
@@ -24,7 +27,7 @@ const Main = () => {
       }}
     >
       <MainBottomTab.Screen
-        name='Home'
+        name='Universe'
         component={Universe}
         options={{
           tabBarIcon: ({ focused }) => <MyIcons name='Universe' focused={focused} />,

@@ -1,4 +1,6 @@
 export type ScreenParams = {
+  AdditionalInfo: {}
+
   Login: {}
   Main: {}
   Welcome: {}

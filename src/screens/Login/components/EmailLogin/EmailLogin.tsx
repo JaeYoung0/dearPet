@@ -1,5 +1,5 @@
 import useCustomNavi from '@/hooks/useCustomNavi'
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, Pressable, Alert } from 'react-native'
 import * as S from './EmailLogin.style'
 import auth from '@react-native-firebase/auth'
@@ -8,6 +8,9 @@ import Input from '@/components/Form/Input'
 import { handleEmailLoginError } from '../../errorHandler'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { emailLoginSchema } from '@/components/Form/schema'
+import { useMeState } from '@/modules/user/atoms'
+import useAuth from '../../hooks/useAuth'
+import LoadingIndicator from '@/components/LoadingIndicator'
 
 type FormValues = {
   email: string
@@ -19,18 +22,26 @@ export default function EmailLogin() {
     resolver: yupResolver(emailLoginSchema),
   })
 
+  const { emailLogin, setIsLoading, isLoading } = useAuth()
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setIsLoading(true)
     try {
       const { email, password } = data
       const cred = await auth().signInWithEmailAndPassword(email, password)
       const user = cred.user
-      console.log('@@user', cred.user)
+      console.log('@@user', cred.user.uid)
+
       const isEmailVerified = cred.user.emailVerified
       if (!isEmailVerified) {
         return Alert.alert(`${user.email}로 발송된 인증용 메일을 확인해주세요.`)
+      } else {
+        emailLogin(user.uid)
       }
     } catch (error) {
       handleEmailLoginError(error)
+    } finally {
+      setIsLoading(false)
     }
   }
   const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
@@ -38,6 +49,10 @@ export default function EmailLogin() {
   }
 
   const navi = useCustomNavi()
+
+  // FIXME: 전체가 다 가려지지 않음
+  // if (isLoading) return <LoadingIndicator type='full' />
+
   return (
     <>
       <S.Container>

@@ -41,12 +41,12 @@ function LoginScreen() {
           <S.Divider />
           <View>
             <LoginButton type='google' onClick={googleLogin} />
-            <LoginButton
+            {/* <LoginButton
               type='apple'
               onClick={() => {
                 console.log('apple login')
               }}
-            />
+            /> */}
           </View>
         </View>
       )}

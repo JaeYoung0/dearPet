@@ -1,4 +1,5 @@
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Input from '@/components/Form/Input'
 
 import styled, { css } from '@emotion/native'
 import CustomText from '@/components/CustomText'
@@ -24,4 +25,13 @@ export const SumbmitTouchable = styled(TouchableOpacity)({
 export const SubmitText = styled(CustomText)({
   fontSize: 15,
   color: '#fff',
+})
+
+// 이게 왜 안됐지?
+// export const SignupInput = styled(Input)({
+//   marginBottom: 25,
+// })
+
+export const Spacing = styled.View({
+  marginBottom: 25,
 })

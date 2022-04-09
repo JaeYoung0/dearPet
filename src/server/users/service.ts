@@ -22,3 +22,12 @@ export function updateUserPhotoUrl(payload: UpdateUserPhotoUrlDto) {
     photoURL,
   })
 }
+
+export function updateUserAdditionalInfo(payload: { licenseId: string; message: string; starDate: string }) {
+  const { licenseId, message, starDate } = payload
+
+  return usersCollection.doc(licenseId).update({
+    message,
+    starDate,
+  })
+}

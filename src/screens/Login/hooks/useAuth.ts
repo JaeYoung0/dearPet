@@ -15,8 +15,6 @@ import {
   unlink,
 } from '@react-native-seoul/kakao-login'
 import axios from 'axios'
-import useAppleLogin from './useAppleLogin'
-import { sleep } from '@/utils/sleep'
 
 const customToken = async (snsId: string) => {
   const { data } = await axios.get<{ customToken: string }>(
@@ -27,6 +25,7 @@ const customToken = async (snsId: string) => {
 
 const useAuth = () => {
   const { me, setMe } = useMeState()
+  // FIXME: isLoading 상태를 context로 뿌려주자 or 리코일 상태로 만들자.
   const [isLoading, setIsLoading] = useState(false)
 
   async function findOrCreateUser(payload: Pick<FirebaseAuthTypes.User, 'uid' | 'displayName' | 'email' | 'photoURL'>) {
@@ -107,7 +106,22 @@ const useAuth = () => {
     }
   }, [])
 
-  return { me, isLoading, kakaoLogin, googleLogin }
+  const emailLogin = async (uid: string) => {
+    setIsLoading(true)
+
+    try {
+      const foundUser = (await UserService.getUser(uid)) as UserModel
+      console.log('@@foundUser', foundUser)
+
+      if (!foundUser) {
+        throw new Error('존재하지 않는 사용자입니다.')
+      } else {
+        setMe(foundUser)
+      }
+    } catch (error) {}
+  }
+
+  return { me, isLoading, kakaoLogin, googleLogin, emailLogin, setIsLoading }
 }
 
 export default useAuth

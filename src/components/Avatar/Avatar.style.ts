@@ -17,20 +17,12 @@ export const Img = styled(FastImage)`
   border: 2px solid ${COLORS.BROWN01};
 `
 
-export const InnerCircle = styled.View({
-  position: 'absolute',
-
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  width: 110,
-  height: 110,
-  borderRadius: 110,
-  borderWidth: 2,
-  borderStyle: 'solid',
-  borderColor: COLORS.BROWN01,
-  opacity: 1,
-})
+export const PlanetImg = styled(FastImage)`
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  border: none;
+`
 
 export const OuterCircle = styled.View({
   position: 'relative',

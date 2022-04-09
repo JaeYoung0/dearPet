@@ -1,9 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Main from '@/navigation/Main'
 import Welcome from '@/screens/Welcome'
 import Login from '@/screens/Login'
 import SignUp from '@/screens/SignUp'
+import AdditionalInfo from '@/screens/AdditionalInfo'
 import { useRecoilValue } from 'recoil'
 import { userStatus } from '@/modules/user/atoms'
 import LoadingIndicator from '@/components/LoadingIndicator'
@@ -14,7 +15,11 @@ const EntryStack = createStackNavigator()
 function Entry() {
   const me = useRecoilValue(userStatus)
 
+  const shouldUpdateProfile = !me?.photoURL || !me?.message || !me?.starDate
+
   const { sawWelcome } = useSawWelcome()
+  console.log('@@me', me)
+
   if (sawWelcome === null) return <LoadingIndicator />
 
   return (
@@ -27,7 +32,12 @@ function Entry() {
           <EntryStack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
         </>
       )}
-      {me && <EntryStack.Screen name='Main' component={Main} options={{ headerShown: false }} />}
+      {me && !shouldUpdateProfile && (
+        <EntryStack.Screen name='Main' component={Main} options={{ headerShown: false }} />
+      )}
+      {me && shouldUpdateProfile && (
+        <EntryStack.Screen name='AdditionalInfo' component={AdditionalInfo} options={{ headerShown: false }} />
+      )}
     </EntryStack.Navigator>
   )
 }

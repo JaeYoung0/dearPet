@@ -28,7 +28,6 @@ function Avatar({ size = 'lg' }: Props) {
   const { onSelectImage, isUploading } = useAvatar()
 
   if (!me) return <LoadingIndicator />
-  console.log('@@size', size)
 
   return (
     <Pressable onPress={onSelectImage}>
@@ -37,11 +36,15 @@ function Avatar({ size = 'lg' }: Props) {
       ) : (
         <View>
           <S.Frame source={require('@assets/images/frame.png')}>
-            <S.Img
-              source={{ uri: me.photoURL }}
-              // FIXME: 적용안됨
-              //  style={{ width: `${imgSize.width}`, height: `${imgSize.height}` }}
-            />
+            {me.photoURL ? (
+              <S.Img
+                source={{ uri: me.photoURL }}
+                // FIXME: 적용안됨
+                //  style={{ width: `${imgSize.width}`, height: `${imgSize.height}` }}
+              />
+            ) : (
+              <S.PlanetImg source={require('@assets/images/planet.png')} />
+            )}
           </S.Frame>
         </View>
       )}
