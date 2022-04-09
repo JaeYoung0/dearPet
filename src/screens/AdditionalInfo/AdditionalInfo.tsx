@@ -92,8 +92,9 @@ function AdditionalInfo() {
       <FormProvider {...methods}>
         <S.ContentBox style={{ padding: 30 }}>
           <S.Title>아이의 별에 입력될 정보에요</S.Title>
+          <S.Spacing style={{ marginBottom: 0 }} />
 
-          {me?.photoURL && (
+          {!me?.photoURL && (
             <>
               <S.AvatarWrapper>
                 <Avatar />
