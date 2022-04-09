@@ -92,16 +92,13 @@ function AdditionalInfo() {
       <FormProvider {...methods}>
         <S.ContentBox style={{ padding: 30 }}>
           <S.Title>아이의 별에 입력될 정보에요</S.Title>
+          {/*FIXME:  카카오 로그인했는데 닉네임 못불러오는 경우도 있네?? 추가해야겠다.. */}
           <S.Spacing style={{ marginBottom: 0 }} />
 
-          {!me?.photoURL && (
-            <>
-              <S.AvatarWrapper>
-                <Avatar />
-              </S.AvatarWrapper>
-              <S.ChangeText>프로필 사진 변경</S.ChangeText>
-            </>
-          )}
+          <S.AvatarWrapper>
+            <Avatar />
+          </S.AvatarWrapper>
+          <S.ChangeText>프로필 사진 변경</S.ChangeText>
 
           <S.Spacing style={{ marginBottom: 50 }} />
 
