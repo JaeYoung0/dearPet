@@ -8,17 +8,17 @@ export const BackVideo = styled(Video)({
   left: 0,
   bottom: 0,
   right: 0,
-  width: '100%',
 })
 
 export const Backdrop = styled.View({
-  flex: 1,
   position: 'absolute',
   top: 0,
   left: 0,
   bottom: 0,
   right: 0,
-  width: '100%',
+
+  flex: 1,
+
   backgroundColor: '#000000',
   opacity: 0.5,
   alignItems: 'center',

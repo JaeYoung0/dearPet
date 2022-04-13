@@ -50,8 +50,7 @@ export default function EmailLogin() {
 
   const navi = useCustomNavi()
 
-  // FIXME: 전체가 다 가려지지 않음
-  // if (isLoading) return <LoadingIndicator type='full' />
+  if (isLoading) return <LoadingIndicator type='full' />
 
   return (
     <>

@@ -19,7 +19,19 @@ export default function LoadingIndicator({ type = 'basic' }: Props) {
 
   if (type === 'full')
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: 100 }}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 100,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+      >
         <S.BackgroundImg source={require('@assets/images/loading_bg.png')} />
 
         <S.ContentWrapper>
