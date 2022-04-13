@@ -41,7 +41,7 @@ function LoginScreen() {
     <Layout style={{ padding: 55, justifyContent: 'center' }}>
       <Background />
 
-      <Pressable style={{ position: 'absolute', top: 25, left: 25, zIndex: 100 }} onPress={toggleScreen}>
+      <Pressable style={{ position: 'absolute', top: 26, left: 26, zIndex: 100 }} onPress={toggleScreen}>
         <MyIcons name='Arrow' />
       </Pressable>
 
