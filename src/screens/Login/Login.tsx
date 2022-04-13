@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Pressable, View } from 'react-native'
 import useAuth from './hooks/useAuth'
 import * as S from './Login.style'
@@ -7,6 +7,9 @@ import EmailLogin from './components/EmailLogin'
 import LoginButton from './components/LoginButton'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import Layout from '@/components/Layout'
+import { useModals } from '@/modules/modals/atoms'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import SofiaText from '@/components/SofiaText'
 
 function Background() {
   return (
@@ -21,6 +24,23 @@ function LoginScreen() {
   const [mainLogin, setMainLogin] = useState(true)
   const toggleScreen = () => setMainLogin(!mainLogin)
   const { me, isLoading, kakaoLogin, googleLogin } = useAuth()
+
+  const { openModal, closeAll } = useModals()
+
+  useEffect(() => {
+    closeAll()
+    openModal({
+      type: 'BasicModal',
+      title: 'wow',
+      cancelText: 'canel',
+      onCancel: closeAll,
+      confirmText: '확인',
+      onConfirm: () => {
+        Alert.alert('확인')
+        closeAll()
+      },
+    })
+  }, [])
 
   if (me) return null
 
@@ -56,6 +76,21 @@ function LoginScreen() {
           Alert.alert('구현 중입니다.')
         }}
       />
+      <S.TestButton
+        activeOpacity={0.7}
+        onPress={() => {
+          openModal({
+            type: 'BasicModal',
+            title: '편지를 보내시겠어요?',
+            // content: '어쩌고저쩌고 쏼라입니다.',
+            cancelText: '취소',
+            confirmText: '확인',
+            onConfirm: closeAll,
+          })
+        }}
+      >
+        <SofiaText style={{ color: '#000' }}>Modal Test</SofiaText>
+      </S.TestButton>
     </Layout>
   )
 }

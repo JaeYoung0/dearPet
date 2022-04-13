@@ -31,3 +31,12 @@ export const Divider = styled.View({
   borderBottomWidth: 1,
   borderColor: '#dcdcdc',
 })
+
+export const TestButton = styled.TouchableOpacity({
+  height: 40,
+  width: '100%',
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  justifyContent: 'center',
+  alignItems: 'center',
+})

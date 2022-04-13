@@ -1,41 +1,37 @@
+import { useModals } from '@/modules/modals/atoms'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Pressable } from 'react-native'
 import Overlay from '../Overlay'
 import * as S from './BasicModal.style'
 
 interface Props {
-  visible: boolean
-  content: string
+  title?: string
+  content?: string
 
-  cancelText: string
-  onCancel: () => void
+  cancelText?: string
+  onCancel?: () => void
 
-  confirmText: string
-  onConfirm: () => void
+  confirmText?: string
+  onConfirm?: () => void
 }
 
-export default function BasicModal({ visible, content, cancelText, confirmText, onCancel, onConfirm }: Props) {
-  if (!visible) return null
-
+export default function BasicModal({ title, content, cancelText, confirmText, onCancel, onConfirm }: Props) {
+  const { closeAll } = useModals()
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 100,
-      }}
-    >
+    <S.Container>
       <Overlay />
+
       <S.Modal>
-        <S.ModalContentText>{content}</S.ModalContentText>
+        {title && <S.Title>{title}</S.Title>}
+        {content && <S.ModalContentText>{content}</S.ModalContentText>}
+
         <S.Actions>
-          <S.CancelTouchable onPress={onCancel}>
+          <S.CancelTouchable
+            onPress={() => {
+              closeAll()
+              onCancel?.()
+            }}
+          >
             <S.ActionText>{cancelText}</S.ActionText>
           </S.CancelTouchable>
           <S.ConfirmTouchable onPress={onConfirm}>
@@ -43,6 +39,6 @@ export default function BasicModal({ visible, content, cancelText, confirmText, 
           </S.ConfirmTouchable>
         </S.Actions>
       </S.Modal>
-    </SafeAreaView>
+    </S.Container>
   )
 }
