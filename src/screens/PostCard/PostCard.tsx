@@ -24,6 +24,7 @@ import useUploadImages from '@/hooks/useUploadImages'
 import { useUploaderState } from '@/modules/uploader/atom'
 import { useMeState } from '@/modules/user/atoms'
 import GestureRecognizer from 'react-native-swipe-gestures'
+import { useModals } from '@/modules/modals/atoms'
 
 type FormValues = {
   title: string
@@ -136,12 +137,7 @@ function PostCard() {
     console.log('@@errors', errors)
   }
 
-  const swipeFromLeftOpen = () => {
-    Alert.alert('Swipe from left')
-  }
-  const swipeFromRightOpen = () => {
-    Alert.alert('Swipe from right')
-  }
+  const { openModal } = useModals()
 
   if (isLoading || isRefetchingByUser) return <LoadingIndicator type={isLoading ? 'full' : 'basic'} />
 
@@ -158,7 +154,14 @@ function PostCard() {
                   if (mode === 'read') {
                     setMode('edit')
                   } else {
-                    setModalVisible(true)
+                    openModal({
+                      type: 'BasicModal',
+                      title: '편지를 보낼까요?',
+                      cancelText: '취소',
+                      confirmText: '전송',
+
+                      onConfirm: () => methods.handleSubmit(onSubmit, onError)(),
+                    })
                   }
                 }}
                 style={{
@@ -257,11 +260,13 @@ function PostCard() {
             >
               <S.LetterBg source={require('@assets/images/letter_bg.png')} />
               <S.LetterBody style={{ padding: 25, paddingTop: 30 }}>
-                {post?.photoURL[0] ? (
+                {post?.photoURL[0] && mode === 'read' && (
                   <View style={{ flex: 5 }}>
                     <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: post?.photoURL[0] }} />
                   </View>
-                ) : (
+                )}
+
+                {!post?.photoURL[0] && (
                   <View
                     style={{
                       flex: 5,
@@ -271,6 +276,25 @@ function PostCard() {
                       marginBottom: 10,
                     }}
                   >
+                    <AssetUploader />
+                  </View>
+                )}
+
+                {post?.photoURL[0] && mode === 'edit' && (
+                  <View
+                    style={{
+                      flex: 5,
+                      borderColor: '#999999',
+                      borderWidth: 2,
+                      borderStyle: 'dashed',
+                      marginBottom: 10,
+                      position: 'relative',
+                    }}
+                  >
+                    <View style={{ flex: 5, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                      <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: post?.photoURL[0] }} />
+                    </View>
+
                     <AssetUploader />
                   </View>
                 )}
@@ -349,21 +373,6 @@ function PostCard() {
             <Text style={{ fontSize: 20, color: '#c82424' }}>삭제하기</Text>
           </TouchableOpacity>
         </Animated.View> */}
-
-        <BasicModal
-          visible={modalVisible}
-          content={`편지를 보낼까요 ?`}
-          cancelText='취소'
-          onCancel={() => {
-            setModalVisible(false)
-          }}
-          confirmText='전송'
-          onConfirm={() => {
-            setModalVisible(false)
-
-            methods.handleSubmit(onSubmit, onError)()
-          }}
-        />
       </View>
     </Layout>
   )
