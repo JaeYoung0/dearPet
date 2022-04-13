@@ -70,7 +70,7 @@ function SignUp() {
   return (
     <Layout>
       <SignUpHeader />
-      <S.Container style={{ padding: 20 }}>
+      <S.Container style={{ padding: 35 }}>
         <FormProvider {...methods}>
           <Input name='displayName' label='이름' placeholder='반려동물의 이름을 입력해주세요.' />
           <S.Spacing />
@@ -86,7 +86,7 @@ function SignUp() {
           />
         </FormProvider>
       </S.Container>
-      <S.TouchableWrapper style={{ padding: 20 }}>
+      <S.TouchableWrapper style={{ padding: 35 }}>
         <S.SumbmitTouchable containerStyle={{ width: '100%' }} onPress={methods.handleSubmit(onSubmit, onError)}>
           <S.SubmitText>동의하고 회원가입</S.SubmitText>
         </S.SumbmitTouchable>
