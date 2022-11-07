@@ -4,8 +4,8 @@ buildscript {
     ext {
         buildToolsVersion = "30.0.2"
         minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 31
+        targetSdkVersion = 31
         ndkVersion = "21.4.7075529"
         googlePlayServicesAuthVersion = "19.2.0" // <--- use this version or newer
         kotlinVersion = '1.5.0' // kotlin을 프로젝트에서 해석가능하도록 설치
